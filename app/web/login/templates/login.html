@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap-5.3.0-dist/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='bootstrap-5.3.0-dist/js/bootstrap.min.js') }}"></script>
+    <title>Inicio de sesión</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: #392F5A;
+        }
+
+        .form-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #6C5B99;
+            border-radius: 5px;
+            background-color: #473A6B;
+            color: #FFFFFF;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #A78FC4;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        .btn-primary {
+            background-color: #A78FC4;
+            border-color: #A78FC4;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Inicio de Sesión</h1>
+        <form action="/login/dologin" method="POST">
+            <div class="mb-3">
+                <label for="rut" class="form-label">RUT</label>
+                <input type="text" class="form-control" id="rut" name="rut" placeholder="12345678-9">
+            </div>
+
+            <div class="mb-3">
+                <label for="clave" class="form-label">CLAVE</label>
+                <input type="password" class="form-control" id="clave" name="clave" placeholder="****">
+            </div>
+
+            <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>
