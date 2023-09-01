@@ -6,3 +6,6 @@ Instalar paquetes
 Migrar y actualizad bd
 -->flask db migrate 
 -->flask db upgrade 
+
+# RutaWeb 
+http://localhost:5001/login/
