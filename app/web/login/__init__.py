@@ -10,21 +10,3 @@ login = Blueprint('login', __name__, template_folder='templates', static_folder=
 def root():
     return render_template("login.html") 
 
-@login.route("/dologin", methods=["POST"])
-def dologin():
-    print("Ingresar")
-    rut = request.form.get("rut")
-    clave = request.form.get("clave")
-
-    usuario = db.session.query(Usuario).filter(Usuario.rut == rut).first()
-    if usuario is None:
-        return redirect(url_for("login.root"))
-    if not check_password_hash(usuario.clave, clave):
-        return redirect(url_for("login.root"))
-    login_user(usuario)
-    return redirect(url_for("home.root"))
-
-@login.route("/logout")
-def logout():
-    logout_user()
-    return redirect(url_for("login.root"))

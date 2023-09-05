@@ -1,0 +1,11 @@
+{% extends 'base.html' %} 
+    {% block contenido %} 
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarClienteModal">
+    Agregar Cliente
+  </button>
+    {% include 'agregar_cliente.html' %} 
+    <script src="{{ url_for('clientes.static', filename='clientes.js') }}"></script>
+    {% endblock %}
+  
+     

@@ -33,3 +33,12 @@ app.register_blueprint(login)
 
 from app.comandos import comandos
 app.register_blueprint(comandos)
+
+from app.web.clientes import clientes
+app.register_blueprint(clientes)
+
+from app.api.login import api_login
+app.register_blueprint(api_login)
+
+from app.api.clientes import api_clientes
+app.register_blueprint(api_clientes)
