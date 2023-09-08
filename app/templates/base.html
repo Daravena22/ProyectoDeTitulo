@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap-5.3.0-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='DataTables/datatables.min.css') }}">
    
     <title>NellyJoyas - Home</title>
     <style>
@@ -64,13 +65,18 @@
         </div>
     </nav>
 
+    <script src="{{ url_for('static', filename='code.jquery.com_jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-5.3.0-dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='DataTables/datatables.min.js') }}"></script>
+
     {% block contenido %} 
 		 
 	{% endblock %}
 
     <!-- Resto del contenido de la página -->
-    <script src="{{ url_for('static', filename='bootstrap-5.3.0-dist/js/bootstrap.min.js') }}"></script>
+
 </body>
 </html>
+
 
 

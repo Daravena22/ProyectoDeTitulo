@@ -17,3 +17,24 @@ const agregarCliente = async () => {
     // do something with myJson
   }
 
+  $(document).ready(function() {
+    $('#datos_clientes').DataTable({
+      "processing": true,
+        serverSide: true,
+        ajax: {
+            url: '/api/clientes/listar',
+            type: 'GET',
+            
+        },
+        columns: [
+          { data: 'id', title: 'ID' },
+          { data: 'rut', title: 'RUT' },
+          { data: 'apellido', title: 'APELLIDO' },
+          { data: 'nombre', title: 'NOMBRE' },
+          { data: 'telefono', title: 'TELEFONO' },
+          { data: 'direccion', title: 'DIRECCION' }
+            // Configura tus columnas aquí
+        ]
+    });
+});
+
