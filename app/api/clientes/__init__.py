@@ -53,24 +53,52 @@ def eliminar_cliente():
     return jsonify({"status":'ok'}), 200
 
 
-@api_clientes.route("/editar", methods=["UPDATE"])
+
+@api_clientes.route("/datosCliente/<id_cliente>", methods=["GET"])
+@login_required
+def datos_cliente(id_cliente):
+
+  
+    # Obtén el cliente que deseas editar desde la base de datos
+    cliente = db.session.query(Cliente).filter(Cliente.id == id_cliente).first()
+    
+    # Devuelve los datos del cliente como JSON, incluso si el cliente no se encuentra
+    cliente_data = {
+        "rut": cliente.rut,
+        "apellido": cliente.apellido,
+        "nombre": cliente.nombre,
+        "telefono": cliente.telefono,
+        "direccion": cliente.direccion
+    }
+    return jsonify(cliente_data), 200
+
+
+
+@api_clientes.route("/editar", methods=["PATCH"])
 @login_required
 def editar_cliente():
     valores = request.get_json()
-    rut= valores['rut']
+    
+    id_cliente = valores["id_cliente"]
+    rut = valores['rut']
     apellido = valores['apellido']
     nombre = valores['nombre']
     telefono = valores['telefono']
     direccion = valores['direccion']
 
-    cliente = Cliente()
+    cliente = db.session.query(Cliente).filter(Cliente.id == id_cliente).first()
     cliente.rut = rut
     cliente.apellido = apellido
     cliente.nombre = nombre
     cliente.telefono = telefono
     cliente.direccion = direccion
 
-    db.session.add(cliente)
+
     db.session.commit()
     return jsonify({"status":'ok'}), 200
-  
+
+    
+   
+
+
+

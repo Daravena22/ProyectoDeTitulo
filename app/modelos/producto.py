@@ -9,3 +9,4 @@ class Producto(db.Model):
     stock = db.Column(db.Integer)
     categoria_id = db.Column(db.Integer, db.ForeignKey("categoria.id"))
     material_id = db.Column(db.Integer, db.ForeignKey("material.id"))
+    
