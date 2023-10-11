@@ -51,7 +51,18 @@
                         <a class="nav-link" href="{{url_for('clientes.root')}}">Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Productos</a>
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" id="mantenedoresDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Mantenedores
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="mantenedoresDropdown">
+                                <li><a class="dropdown-item" href="{{url_for('material.root')}}">Material</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('categorias.root')}}">Categoria</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('productos.root')}}">Productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Ventas</a>
@@ -68,10 +79,12 @@
     </nav>
 
     <script src="{{ url_for('static', filename='code.jquery.com_jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='popper/cdnjs.cloudflare.com_ajax_libs_popper.js_2.11.8_umd_popper.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap-5.3.0-dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='DataTables/datatables.min.js') }}"></script>
     <script src="{{ url_for('static', filename='toastr/cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.js') }}"></script>
     <script src="{{ url_for('static', filename='base.js') }}"></script>
+   
 
     {% block contenido %} 
 		 

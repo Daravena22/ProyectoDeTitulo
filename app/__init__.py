@@ -42,3 +42,21 @@ app.register_blueprint(api_login)
 
 from app.api.clientes import api_clientes
 app.register_blueprint(api_clientes)
+
+from app.web.mantenedores.categorias import categorias
+app.register_blueprint(categorias)
+
+from app.api.mantenedores.categoria import api_categorias
+app.register_blueprint (api_categorias)
+
+from app.web.mantenedores.material import material
+app.register_blueprint(material)
+
+from app.api.mantenedores.material import api_material
+app.register_blueprint(api_material)
+
+from app.web.productos import productos
+app.register_blueprint(productos)
+
+from app.api.productos import api_productos
+app.register_blueprint(api_productos)

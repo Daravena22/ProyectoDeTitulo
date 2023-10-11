@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block contenido %}
+  <!-- Encabezado "CATEGORÍAS" con fondo suave -->
+  <div style="background-color: #E6E6FA; padding: 10px; text-align: center;">
+    <h5 style="color: rgb(61, 20, 80);">CATEGORÍAS</h5>
+  </div>
+
+  <!-- Botón para agregar categoría y tabla DataTable -->
+  <button type="button" class="btn btn-primary m-4" data-bs-toggle="modal" data-bs-target="#AgregarCategoriaModal">
+    Agregar Categoría
+  </button>
+
+  <div class="table-responsive m-4">
+    <table id="datos_categorias" class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>ACCIONES</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  {% include 'agregar_categoria.html' %}
+  {% include 'editar_categoria.html' %}
+  <script src="{{ url_for('categorias.static', filename='categorias.js') }}"></script>
+
+  <style>
+    /* Estilos para la tabla DataTable */
+    #datos_categorias {
+      width: 80%; /* Cambia el porcentaje según el tamaño deseado */
+      margin: 0 auto; /* Centra la tabla horizontalmente */
+    }
+
+    /* Define tus estilos personalizados aquí */
+  </style>
+{% endblock %}

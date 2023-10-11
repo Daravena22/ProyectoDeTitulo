@@ -19,6 +19,7 @@ const agregarCliente = async () => {
   $('#AgregarClienteModal').modal('toggle')
   //extract JSON from the http response
   // do something with myJson
+  
 }
 
 $(document).ready(function () {
