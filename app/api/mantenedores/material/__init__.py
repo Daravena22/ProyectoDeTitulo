@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash
 from app import db 
 from app.common.sql_utils import SqlUtils
 from app.modelos.material import Material
+from app.modelos.producto import Producto
 
 api_material = Blueprint('api_material', __name__, url_prefix='/api/mantenedores/material')
 
@@ -39,8 +40,11 @@ def listar_material():
 def eliminar_material():
     valores = request.get_json()
     id = valores["id"]
-    cliente = db.session.query(Material).filter(Material.id==id).first()
-    db.session.delete(cliente)
+    productos = db.session.query(Producto).filter(Producto.material_id== id).first()
+    if productos is not None:  return jsonify({"status":'error',"message":'No se puede eliminar ya que Producto tiene material asociado'}), 200
+
+    material = db.session.query(Material).filter(Material.id==id).first()
+    db.session.delete(material)
     db.session.commit()
     return jsonify({"status":'ok'}), 200
 

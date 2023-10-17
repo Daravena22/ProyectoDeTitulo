@@ -1,0 +1,51 @@
+<div class="modal fade" id="EditarProductoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>  
+            <input type="text" class="form-control" id="editar_id_producto" hidden>
+            <div class="mb-3">
+                <label for="editar_genero" class="form-label">Genero</label>
+                <input type="text" class="form-control" id="editar_genero">
+              </div>
+            <div class="mb-3">
+              <label for="editar_nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="editar_nombre">
+            </div>
+            <div class="mb-3">
+              <label for="editar_detalle" class="form-label">Detalle</label>
+              <input type="text" class="form-control" id="editar_detalle">
+            </div>
+            <div class="mb-3">
+              <label for="editar_precio" class="form-label">Precio</label>
+              <input type="text" class="form-control" id="editar_precio">
+            </div>
+            <div class="mb-3">
+              <label for="editar_stock" class="form-label">Stock</label>
+              <input type="text" class="form-control" id="editar_stock">
+            </div>
+            <div class="mb-3">
+                <label for="editar_categoria" class="form-label">Categoria</label>
+                <select id="editar_categoria" class="form-select">
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="editar_material" class="form-label">Material</label>
+                <select id="editar_material" class="form-select">
+                </select>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" onclick="guardarEdicion()">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

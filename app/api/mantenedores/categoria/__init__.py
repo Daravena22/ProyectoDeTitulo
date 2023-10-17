@@ -3,6 +3,7 @@ from flask_login import login_required
 from app import db
 from app.modelos.categoria import Categoria  # Asegúrate de importar la clase de modelo correcta
 from app.common.sql_utils import SqlUtils
+from app.modelos.producto import Producto
 
 api_categorias = Blueprint('api_categorias', __name__, url_prefix='/api/mantenedores/categorias')
 
@@ -38,6 +39,8 @@ def listar_categorias():
 def eliminar_categoria():
     valores = request.get_json()
     id = valores["id"]
+    productos = db.session.query(Producto).filter(Producto.categoria_id== id).first()
+    if productos is not None:  return jsonify({"status":'error',"message":'No se puede eliminar ya que Producto tiene categoria asociada'}), 200
     categoria = db.session.query(Categoria).filter(Categoria.id == id).first()
     db.session.delete(categoria)
     db.session.commit()

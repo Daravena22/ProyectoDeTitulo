@@ -53,8 +53,15 @@ const agregarMaterial = async () => {
         'Content-Type': 'application/json'
       }
     });
-    const myJson = await response.json();
-    $('#datos_material').DataTable().ajax.reload();
+    const data = await response.json();
+    if(data.status == 'ok'){
+      toastr.success('Material eliminado exitosamente')
+      $('#datos_material').DataTable().ajax.reload();
+    }
+    else if (data.status == 'error'){
+      toastr.error(data.message)
+    }
+    
     //extract JSON from the http response
     // do something with myJson
   }

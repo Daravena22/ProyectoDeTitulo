@@ -1,12 +1,39 @@
   const agregarProducto = async () => {
-    const response = await fetch(`/api/mantenedores/categorias/listartodo`, {
+    response = await fetch(`/api/mantenedores/categorias/listartodo`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
     });
   
-    const rowData = await response.json();
+    rowData = await response.json();
+    const listadocategoria = document.getElementById('categoria');
+    listadocategoria.innerHTML = "";
+    rowData.data.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item.id;
+      option.textContent = item.nombre;
+      listadocategoria.appendChild(option);
+    });
+
+    
+    response = await fetch(`/api/mantenedores/material/listartodo`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    rowData = await response.json();
+    const listadomaterial = document.getElementById('material');
+    listadomaterial.innerHTML = "";
+    rowData.data.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item.id;
+      option.textContent = item.nombre;
+      listadomaterial.appendChild(option);
+    });
+
     //$('#editar_id').val(id_cliente);
     $('#AgregarProductoModal').modal('toggle');
   };
@@ -54,6 +81,7 @@ const agregarProductoGuardar = async () => {
   
       },
       columns: [
+        
         { data: 'genero', title: 'GENERO' },
         { data: 'nombre', title: 'NOMBRE' },
         { data: 'detalle', title: 'DETALLE' },
@@ -77,60 +105,106 @@ const agregarProductoGuardar = async () => {
 
   
   
-//   const eliminarCliente = async (id_cliente) => {
-//     const response = await fetch('/api/clientes/eliminar', {
-//       method: 'DELETE',
-//       body: JSON.stringify({ id: id_cliente }), // string or object
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     });
-//     const myJson = await response.json();
-//     $('#datos_clientes').DataTable().ajax.reload();
-//     //extract JSON from the http response
-//     // do something with myJson
-//   }
+  const eliminarProducto = async (id_producto) => {
+    const response = await fetch('/api/productos/eliminar', {
+      method: 'DELETE',
+      body: JSON.stringify({ id: id_producto }), // string or object
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
+    if(data.status == 'ok'){
+      toastr.success('Producto eliminado exitosamente')
+      $('#datos_productos').DataTable().ajax.reload();
+    }
+    else if (data.status == 'error'){
+      toastr.error(data.message)
+    }}
   
   
-//   const editarCliente = async (id_cliente) => {
-//     const response = await fetch(`/api/clientes/datosCliente/` + id_cliente, {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     });
+  const editarProducto = async (id_producto) => {
+    
+    
+    response = await fetch(`/api/mantenedores/categorias/listartodo`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
   
-//     const rowData = await response.json();
-//     $('#editar_id').val(id_cliente);
-//     $('#editar_rut').val(rowData.rut);
-//     $('#editar_apellido').val(rowData.apellido);
-//     $('#editar_nombre').val(rowData.nombre);
-//     $('#editar_telefono').val(rowData.telefono);
-//     $('#editar_direccion').val(rowData.direccion);
+    rowData = await response.json();
+    const listadocategoria = document.getElementById('editar_categoria');
+    listadocategoria.innerHTML = "";
+    rowData.data.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item.id;
+      option.textContent = item.nombre;
+      listadocategoria.appendChild(option);
+    });
+
+    
+    response = await fetch(`/api/mantenedores/material/listartodo`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    rowData = await response.json();
+    const listadomaterial = document.getElementById('editar_material');
+    listadomaterial.innerHTML = "";
+    rowData.data.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item.id;
+      option.textContent = item.nombre;
+      listadomaterial.appendChild(option);
+    });
+
+    response = await fetch(`/api/productos/datosProductos/` + id_producto, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    rowData = await response.json();
+    $('#editar_id_producto').val(id_producto);
+    $('#editar_genero').val(rowData.genero);
+    $('#editar_nombre').val(rowData.nombre);
+    $('#editar_detalle').val(rowData.detalle);
+    $('#editar_precio').val(rowData.precio);
+    $('#editar_stock').val(rowData.stock);
+    $('#editar_categoria').val(rowData.categoria);
+    $('#editar_material').val(rowData.material);
   
-//     $('#EditarClienteModal').modal('toggle');
-//   };
+    $('#EditarProductoModal').modal('toggle');
+  };
   
-//   const guardarEdicion = async () => {
+  const guardarEdicion = async () => {
+
+    id_producto = document.getElementById('editar_id_producto').value;
+    genero = document.getElementById('editar_genero').value
+    nombre = document.getElementById('editar_nombre').value
+    detalle = document.getElementById('editar_detalle').value
+    precio = document.getElementById('editar_precio').value
+    stock = document.getElementById('editar_stock').value
+    categoria = document.getElementById('editar_categoria').value
+    material = document.getElementById('editar_material').value
   
-//     id_cliente = document.getElementById('editar_id').value
-//     rut = document.getElementById('editar_rut').value
-//     apellido = document.getElementById('editar_apellido').value
-//     nombre = document.getElementById('editar_nombre').value
-//     telefono = document.getElementById('editar_telefono').value
-//     direccion = document.getElementById('editar_direccion').value
-  
-//     const response = await fetch('/api/clientes/editar', {
-//       method: 'PATCH',
-//       body: JSON.stringify({ id_cliente: id_cliente, rut: rut, apellido: apellido, nombre: nombre, telefono: telefono, direccion: direccion }), // string or object
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     });
-//     const myJson = await response.json();
-//     $('#datos_clientes').DataTable().ajax.reload();
-//     $('#EditarClienteModal').modal('toggle')
-//     toastr.success('Cliente guardado exitosamente')
-//     //extract JSON from the http response
-//     // do something with myJson
-//   }
+    const response = await fetch('/api/productos/editar', {
+      method: 'PATCH',
+      body: JSON.stringify({id_producto : id_producto, genero: genero, nombre: nombre, detalle:detalle, precio: precio, stock: stock, categoria: categoria, material:material }), // string or object
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const myJson = await response.json();
+    $('#datos_productos').DataTable().ajax.reload();
+    $('#EditarProductoModal').modal('toggle')
+    toastr.success('Producto guardado exitosamente')
+
+    
+    //extract JSON from the http response
+    // do something with myJson
+  }

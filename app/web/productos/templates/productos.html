@@ -2,11 +2,11 @@
 {% block contenido %}
   <!-- Encabezado "CATEGORÍAS" con fondo suave -->
   <div style="background-color: #E6E6FA; padding: 10px; text-align: center;">
-    <h5 style="color: rgb(61, 20, 80);">CATEGORÍAS</h5>
+    <h5 style="color: rgb(61, 20, 80);">PRODUCTOS</h5>
   </div>
 
   <!-- Botón para agregar categoría y tabla DataTable -->
-  <button type="button" class="btn btn-primary m-4" data-bs-toggle="modal" data-bs-target="#AgregarProductoModal">
+  <button type="button" class="btn btn-primary m-4" onclick="agregarProducto()">
     Agregar Producto
   </button>
 
@@ -14,7 +14,6 @@
     <table id="datos_productos" class="table table-striped table-bordered">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Genero</th>
           <th>Nombre</th>
           <th>Detalle</th>

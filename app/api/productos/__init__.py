@@ -43,7 +43,69 @@ def listar_productos():
     start = int(request.args.get("start"))
     pagina_index = int(start/pagina_lenght+1)
     draw = int(request.args.get("draw"))
-    query = db.session.query(Producto.id, Producto.genero ,Producto.nombre,Producto.detalle,Producto.precio,Producto.stock, Categoria.nombre.alias('dategoria'),Material.nombre.alias('material')).join(Categoria,Producto.categoria_id, Categoria.id).join(Material, Producto.material_id, Material.id).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
+    query = db.session.query(Producto.id, Producto.genero ,Producto.nombre,Producto.detalle,Producto.precio,Producto.stock, Categoria.nombre.label('categoria'),Material.nombre.label('material')).join(Categoria,Producto.categoria_id == Categoria.id).join(Material, Producto.material_id == Material.id).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
     rows=query.items
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})
+
+
+@api_productos.route("/datosProductos/<id_producto>", methods=["GET"])
+@login_required
+def datos_productos(id_producto):
+
+  
+    # Obtén el cliente que deseas editar desde la base de datos
+    producto = db.session.query(Producto).filter(Producto.id == id_producto).first()
+    
+    # Devuelve los datos del cliente como JSON, incluso si el cliente no se encuentra
+    producto_data = {
+        
+        "genero" : producto.genero,
+        "nombre": producto.nombre,
+        "detalle" : producto.detalle,
+        "precio" : producto.precio,
+        "stock" : producto.stock,
+        "categoria" : producto.categoria_id,
+        "material" : producto.material_id
+
+    }
+    return jsonify(producto_data), 200
+
+@api_productos.route("/eliminar", methods=["DELETE"])
+@login_required
+def eliminar_producto():
+    valores = request.get_json()
+    id = valores["id"]
+    producto = db.session.query(Producto).filter(Producto.id== id).first()
+
+    db.session.delete(producto)
+    db.session.commit()
+    return jsonify({"status":'ok'}), 200
+
+@api_productos.route("/editar", methods=["PATCH"])
+@login_required
+def editar_producto():
+    valores = request.get_json()
+    
+    id_producto = valores["id_producto"]
+    genero = valores['genero']
+    nombre = valores['nombre']
+    detalle = valores['detalle']
+    precio = valores['precio']
+    stock = valores['stock']
+    categoria = valores['categoria']
+    material = valores['material']
+
+    producto = db.session.query(Producto).filter(Producto.id == id_producto).first()
+    producto.genero = genero
+    producto.nombre = nombre
+    producto.detalle = detalle
+    producto.precio = precio
+    producto.categoria_id = categoria
+    producto.material_id = material
+
+
+    db.session.commit()
+    return jsonify({"status":'ok'}), 200
+
+

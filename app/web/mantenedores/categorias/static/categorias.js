@@ -38,16 +38,24 @@ const agregarCategoria = async () => {
   });
   
   const eliminarCategoria = async (id_categoria) => {
-    const response = await fetch('/api/mantenedores/categorias/eliminar', {
+    const response = await fetch('/api/mantenedores/categoria/eliminar', {
       method: 'DELETE',
       body: JSON.stringify({ id: id_categoria }), // string or object
       headers: {
         'Content-Type': 'application/json'
       }
     });
-  
-    const myJson = await response.json();
-    $('#datos_categorias').DataTable().ajax.reload();
+    const data = await response.json();
+    if(data.status == 'ok'){
+      toastr.success('Categoria eliminada exitosamente')
+      $('#datos_categorias').DataTable().ajax.reload();
+    }
+    else if (data.status == 'error'){
+      toastr.error(data.message)
+    }
+    
+    //extract JSON from the http response
+    // do something with myJson
   }
   
   const editarCategoria = async (id_categoria) => {

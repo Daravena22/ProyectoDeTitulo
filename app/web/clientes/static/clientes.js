@@ -6,6 +6,35 @@ const agregarCliente = async () => {
   telefono = document.getElementById('telefono').value
   direccion = document.getElementById('direccion').value
 
+  if (!/^[0-9]{8}-[0-9kK]$/.test(rut)) {
+    mostrarMensajeError('El RUT no tiene el formato correcto (xxxxxxxx-x o xxxxxxxx-k).');
+    return;
+  }
+  
+
+  // Validación de apellido sin números
+  if (/\d/.test(apellido)) {
+    mostrarMensajeError('El apellido no puede contener números.');
+    return;
+  }
+
+  // Validación de nombre sin números
+  if (/\d/.test(nombre)) {
+    mostrarMensajeError('El nombre no puede contener números.');
+    return;
+  }
+
+  // Validación de teléfono sin letras
+  if (/[a-zA-Z]/.test(telefono)) {
+    mostrarMensajeError('El teléfono no puede contener letras.');
+    return;
+  }
+
+  function mostrarMensajeError(mensaje) {
+    // Utilizar Toastr.js u otra biblioteca similar para mostrar mensajes de error
+    toastr.error(mensaje, 'Error', { timeOut: 3000 });
+  }
+
   const response = await fetch('/api/clientes/agregar', {
     method: 'PUT',
     body: JSON.stringify({ rut: rut, apellido: apellido, nombre: nombre, telefono: telefono, direccion: direccion }), // string or object
@@ -15,8 +44,15 @@ const agregarCliente = async () => {
   });
   const myJson = await response.json();
   $('#rut').val('')
+  $('#apellido').val('')
+  $('#nombre').val('')
+  $('#telefono').val('')
+  $('#direccion').val('')
+
+
   $('#datos_clientes').DataTable().ajax.reload();
   $('#AgregarClienteModal').modal('toggle')
+  toastr.success('Cliente guardado exitosamente')
   //extract JSON from the http response
   // do something with myJson
   
@@ -62,6 +98,7 @@ const eliminarCliente = async (id_cliente) => {
   });
   const myJson = await response.json();
   $('#datos_clientes').DataTable().ajax.reload();
+  
   //extract JSON from the http response
   // do something with myJson
 }
@@ -87,25 +124,53 @@ const editarCliente = async (id_cliente) => {
 };
 
 const guardarEdicion = async () => {
+  const id_cliente = document.getElementById('editar_id').value;
+  const rut = document.getElementById('editar_rut').value;
+  const apellido = document.getElementById('editar_apellido').value;
+  const nombre = document.getElementById('editar_nombre').value;
+  const telefono = document.getElementById('editar_telefono').value;
+  const direccion = document.getElementById('editar_direccion').value;
 
-  id_cliente = document.getElementById('editar_id').value
-  rut = document.getElementById('editar_rut').value
-  apellido = document.getElementById('editar_apellido').value
-  nombre = document.getElementById('editar_nombre').value
-  telefono = document.getElementById('editar_telefono').value
-  direccion = document.getElementById('editar_direccion').value
+  // Validación de RUT con formato "xxxxxxxx-x" o "xxxxxxxx-k"
+  if (!/^[0-9]{8}-[0-9kK]$/.test(rut)) {
+    mostrarMensajeError('El RUT no tiene el formato correcto (xxxxxxxx-x o xxxxxxxx-k).');
+    return;
+  }
+
+  // Validación de apellido sin números
+  if (/\d/.test(apellido)) {
+    mostrarMensajeError('El apellido no puede contener números.');
+    return;
+  }
+
+  // Validación de nombre sin números
+  if (/\d/.test(nombre)) {
+    mostrarMensajeError('El nombre no puede contener números.');
+    return;
+  }
+
+  // Validación de teléfono sin letras
+  if (/[a-zA-Z]/.test(telefono)) {
+    mostrarMensajeError('El teléfono no puede contener letras.');
+    return;
+  }
 
   const response = await fetch('/api/clientes/editar', {
     method: 'PATCH',
-    body: JSON.stringify({ id_cliente: id_cliente, rut: rut, apellido: apellido, nombre: nombre, telefono: telefono, direccion: direccion }), // string or object
+    body: JSON.stringify({ id_cliente, rut, apellido, nombre, telefono, direccion }),
     headers: {
       'Content-Type': 'application/json'
     }
   });
+
   const myJson = await response.json();
   $('#datos_clientes').DataTable().ajax.reload();
-  $('#EditarClienteModal').modal('toggle')
-  toastr.success('Cliente guardado exitosamente')
-  //extract JSON from the http response
-  // do something with myJson
+  $('#EditarClienteModal').modal('toggle');
+  toastr.success('Cliente guardado exitosamente');
+  // Extraer JSON de la respuesta HTTP y hacer algo con él
+}
+
+function mostrarMensajeError(mensaje) {
+  // Utilizar Toastr.js u otra biblioteca similar para mostrar mensajes de error
+  toastr.error(mensaje, 'Error', { timeOut: 3000 });
 }
