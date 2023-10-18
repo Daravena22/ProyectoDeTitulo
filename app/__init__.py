@@ -60,3 +60,12 @@ app.register_blueprint(productos)
 
 from app.api.productos import api_productos
 app.register_blueprint(api_productos)
+
+from app.web.mantenedores.folios import folios
+app.register_blueprint(folios)
+
+from app.api.mantenedores.folios import api_folios
+app.register_blueprint(api_folios)
+
+from app.json_encoder import CustomJSONEncoder
+app.json_encoder = CustomJSONEncoder

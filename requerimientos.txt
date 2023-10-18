@@ -1,5 +1,7 @@
-flask
+flask==2.2.3
 flask-sqlalchemy
 flask-login
 pymysql
 flask-migrate
+xmltodict
+python-dateutil

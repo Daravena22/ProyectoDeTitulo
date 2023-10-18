@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block contenido %}
+  <!-- Encabezado "CATEGORÍAS" con fondo suave -->
+  <div style="background-color: #E6E6FA; padding: 10px; text-align: center;">
+    <h5 style="color: rgb(61, 20, 80);">FOLIOS</h5>
+  </div>
+
+  <!-- Botón para agregar categoría y tabla DataTable -->
+  <button type="button" class="btn btn-primary m-4" data-bs-toggle="modal" data-bs-target="#CargarFoliosModal">
+    Cargar Folios
+  </button>
+
+  <div class="table-responsive m-4">
+    <table id="datos_folios" class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>FECHA ASIGNACION</th>
+          <th>FECHA VENCIMIENTO</th>
+          <th>RANGO DESDE</th>
+          <th>RANGO HASTA</th>
+          <th>ÚLTIMO UTILIZADO</th>
+          <th>ACCIONES</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  {% include 'agregar_folios.html' %}
+
+  <script src="{{ url_for('folios.static', filename='folios.js') }}"></script>
+
+  <style>
+    /* Estilos para la tabla DataTable */
+    #datos_folios {
+      width: 80%; /* Cambia el porcentaje según el tamaño deseado */
+      margin: 0 auto; /* Centra la tabla horizontalmente */
+    }
+
+    /* Define tus estilos personalizados aquí */
+  </style>
+{% endblock %}
