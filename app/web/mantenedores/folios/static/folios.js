@@ -34,16 +34,16 @@ $(document).ready(function () {
 
         },
         columns: [
-            { data: 'fecha_asignacion', title: 'FECHA_ASIGNACION' },
-            { data: 'fecha_vencimiento', title: 'FECHA_VENCIMIENTO' },
-            { data: 'rango_desde', title: 'RANGO_DESDE' },
-            { data: 'rango_hasta', title: 'RANGO_HASTA' },
-            { data: 'ultimo_utilizado', title: 'ULTIMO_UTILIZADO' },
+            { data: 'fecha_asignacion', title: 'FECHA ASIGNACION' },
+            { data: 'fecha_vencimiento', title: 'FECHA VENCIMIENTO' },
+            { data: 'rango_desde', title: 'RANGO DESDE' },
+            { data: 'rango_hasta', title: 'RANGO HASTA' },
+            { data: 'ultimo_utilizado', title: 'ULTIMO UTILIZADO' },
            
             {
                 data: null, title: "ACCIONES",
                 render: function (data, type, row) {
-                    return '<button type="button" class="btn btn-danger eliminar-btn" onclick="eliminarCliente(' + row.id + ')">Eliminar</button>'; 
+                    return '<button type="button" class="btn btn-danger eliminar-btn" onclick="eliminarFolios(' + row.id + ')">Eliminar</button>'; 
                         
                 }
             }

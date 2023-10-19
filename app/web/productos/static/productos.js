@@ -47,6 +47,31 @@ const agregarProductoGuardar = async () => {
     stock = document.getElementById('stock').value
     categoria = document.getElementById('categoria').value
     material = document.getElementById('material').value
+
+    if (/\d/.test(genero)) {
+      mostrarMensajeError('El Genero no puede contener números.');
+      return;
+    }
+
+    if (/\d/.test(nombre)) {
+      mostrarMensajeError('El nombre no puede contener números.');
+      return;
+    }
+
+    if (/[a-zA-Z]/.test(precio)) {
+      mostrarMensajeError('El precio no puede contener letras.');
+      return;
+    }
+
+    if (/[a-zA-Z]/.test(stock)) {
+      mostrarMensajeError('El stock no puede contener letras.');
+      return;
+    }
+
+    function mostrarMensajeError(mensaje) {
+      // Utilizar Toastr.js u otra biblioteca similar para mostrar mensajes de error
+      toastr.error(mensaje, 'Error', { timeOut: 3000 });
+    }
   
     const response = await fetch('/api/productos/agregar', {
       method: 'PUT',
@@ -65,7 +90,8 @@ const agregarProductoGuardar = async () => {
     $('#material').val('')
 
     $('#datos_productos').DataTable().ajax.reload();
-    $('#AgregarProductosModal').modal('toggle')
+    $('#AgregarProductoModal').modal('toggle')
+    toastr.success('Producto guardado exitosamente')
     //extract JSON from the http response
     // do something with myJson
     

@@ -43,6 +43,7 @@ def eliminar_categoria():
     if productos is not None:  return jsonify({"status":'error',"message":'No se puede eliminar ya que Producto tiene categoria asociada'}), 200
     categoria = db.session.query(Categoria).filter(Categoria.id == id).first()
     db.session.delete(categoria)
+
     db.session.commit()
     return jsonify({"status": 'ok'}), 200
 

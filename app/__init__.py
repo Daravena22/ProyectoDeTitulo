@@ -3,6 +3,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from app.modelos import importar_modelos
 from flask_login import LoginManager
+import pytest
 
 app = Flask(__name__) 
 

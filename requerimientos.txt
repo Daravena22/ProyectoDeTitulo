@@ -5,3 +5,5 @@ pymysql
 flask-migrate
 xmltodict
 python-dateutil
+pytest 
+pytest -flask

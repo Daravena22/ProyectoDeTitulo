@@ -38,7 +38,7 @@ const agregarCategoria = async () => {
   });
   
   const eliminarCategoria = async (id_categoria) => {
-    const response = await fetch('/api/mantenedores/categoria/eliminar', {
+    const response = await fetch('/api/mantenedores/categorias/eliminar', {
       method: 'DELETE',
       body: JSON.stringify({ id: id_categoria }), // string or object
       headers: {
