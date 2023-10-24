@@ -72,7 +72,14 @@ def datos_cliente(id_cliente):
     }
     return jsonify(cliente_data), 200
 
-
+@api_clientes.route("/listartodo", methods=["GET"])
+@login_required
+def listar_todos_clientes():
+    
+    rows = db.session.query(Cliente.id, Cliente.rut, Cliente.nombre, Cliente.apellido).all()
+    data = SqlUtils.rows_to_dict(rows)
+    
+    return jsonify({"data": data})
 
 @api_clientes.route("/editar", methods=["PATCH"])
 @login_required

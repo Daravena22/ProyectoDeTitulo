@@ -53,8 +53,6 @@ const agregarCliente = async () => {
   $('#datos_clientes').DataTable().ajax.reload();
   $('#AgregarClienteModal').modal('toggle')
   toastr.success('Cliente guardado exitosamente')
-  //extract JSON from the http response
-  // do something with myJson
   
 }
 

@@ -3,7 +3,6 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from app.modelos import importar_modelos
 from flask_login import LoginManager
-import pytest
 
 app = Flask(__name__) 
 
@@ -70,3 +69,6 @@ app.register_blueprint(api_folios)
 
 from app.json_encoder import CustomJSONEncoder
 app.json_encoder = CustomJSONEncoder
+
+from app.web.ventas import ventas
+app.register_blueprint(ventas)

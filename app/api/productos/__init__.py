@@ -82,6 +82,15 @@ def eliminar_producto():
     db.session.commit()
     return jsonify({"status":'ok'}), 200
 
+@api_productos.route("/listartodo", methods=["GET"])
+@login_required
+def listar_todos_productos():
+    
+    rows = db.session.query(Producto.id,Producto.nombre,Producto.detalle, Producto.precio).all()
+    data = SqlUtils.rows_to_dict(rows)
+    
+    return jsonify({"data": data})
+
 @api_productos.route("/editar", methods=["PATCH"])
 @login_required
 def editar_producto():
