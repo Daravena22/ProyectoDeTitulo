@@ -37,17 +37,52 @@
   
                     <div class="mb-3">
                         <label for="cliente" class="form-label">Cliente</label>
-                        <input class="form-control" list="clientes" id="cliente" placeholder="Buscar cliente">
-                        <datalist id="clientes">
-                      
-                        </datalist> 
+                        <select id="cliente" class="form-select">
+                        </select>
+                   
 
                     </div>
                     
                     </div>
-                    <div class="tab-pane fade" id="prductos-tab-pane" role="tabpanel" aria-labelledby="productos" tabindex="0">
+                    <div class="tab-pane fade" id="productos-tab-pane" role="tabpanel" aria-labelledby="productos" tabindex="0">
 
+                      <div class="mb-3">
+                        <label for="productos" class="form-label">Productos</label>
+                        <select id="productos" class="form-select" onchange="seleccionar_producto(this)">
+                        </select>
                     </div>
+
+                    <div class="mb-3">
+                      <label for="precio" class="form-label">Precio</label>
+                      <input readonly type="number" class="form-control" id="precio">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="cantidad" class="form-label">Cantidad</label>
+                      <input type="number" class="form-control" id="cantidad" onchange="calcular_total()">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="total" class="form-label">Total</label>
+                      <input readonly type="number" class="form-control" id="total">
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="agregar_producto()">Guardar Producto</button>
+            
+                    <table class="table table-striped" id="carrito">
+                      <thead>
+                        <tr>
+                          <th scope="col">PRODUCTO</th>
+                          <th scope="col">CANTIDAD</th>
+                          <th scope="col">PRECIO UNITARIO</th>
+                          <th scope="col">TOTAL</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                      </tbody>
+                    </table>
+                    
                     <div class="tab-pane fade" id="resumen-tab-pane" role="tabpanel" aria-labelledby="resumen-tab" tabindex="0">
 
                     </div>
@@ -59,6 +94,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        
           <!-- <button type="button" class="btn btn-primary" onclick="agregarCliente()">Guardar Cliente</button> -->
         </div>
       </div>

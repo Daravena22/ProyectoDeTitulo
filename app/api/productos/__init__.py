@@ -86,7 +86,7 @@ def eliminar_producto():
 @login_required
 def listar_todos_productos():
     
-    rows = db.session.query(Producto.id,Producto.nombre,Producto.detalle, Producto.precio).all()
+    rows = db.session.query(Producto.id,Producto.nombre,Producto.detalle, Producto.precio, Producto.stock).all()
     data = SqlUtils.rows_to_dict(rows)
     
     return jsonify({"data": data})

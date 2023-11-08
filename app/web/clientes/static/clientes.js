@@ -80,7 +80,6 @@ $(document).ready(function () {
         }
       }
 
-      // Configura tus columnas aquí
     ]
   });
 });
