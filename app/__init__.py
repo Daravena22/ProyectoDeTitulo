@@ -72,3 +72,6 @@ app.json_encoder = CustomJSONEncoder
 
 from app.web.ventas import ventas
 app.register_blueprint(ventas)
+
+from app.api.ventas import api_ventas
+app.register_blueprint(api_ventas)

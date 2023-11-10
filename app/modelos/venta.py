@@ -9,3 +9,4 @@ class Venta(db.Model):
     monto_neto = db.Column(db.Double)
     monto_bruto = db.Column(db.Double)
     monto_impuesto = db.Column(db.Double)
+    total_abonado = db.Column(db.Double)
