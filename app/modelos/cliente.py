@@ -6,5 +6,6 @@ class Cliente(db.Model):
     nombre = db.Column(db.String(50))
     apellido = db.Column(db.String(50)) 
     telefono = db.Column(db.String(20)) 
-    direccion = db.Column(db.String(100)) 
+    direccion = db.Column(db.String(100))
+    deuda = db.Column(db.Double) 
 

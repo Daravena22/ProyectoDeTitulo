@@ -8,3 +8,6 @@ xmltodict
 python-dateutil
 pytest 
 pytest -flask
+python-dotenv
+colorlog
+concurrent-log-handler

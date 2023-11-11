@@ -1,5 +1,6 @@
 productos = {}
 carrito_productos = {}
+total = 0
 
 const agregarVenta = async () => {
   response = await fetch(`/api/clientes/listartodo`, {
@@ -19,13 +20,31 @@ const agregarVenta = async () => {
     listadocliente.appendChild(option);
   });
 
-  response = await fetch(`/api/productos/listartodo`, {
+  response = await fetch(`/api/mantenedores/tipo_abono/listartodo`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     }
   });
 
+  rowData = await response.json();
+  const listado_tipo_abono = document.getElementById('tipo_abono');
+  listado_tipo_abono.innerHTML = "";
+  rowData.data.forEach(item => {
+    const option = document.createElement('option');
+    option.value = item.id;
+    option.textContent = item.nombre;
+    listado_tipo_abono.appendChild(option);
+  });
+
+
+  response = await fetch(`/api/productos/listartodo`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  
   rowData = await response.json();
   const listadoproducto = document.getElementById('productos');
   listadoproducto.innerHTML = "";
@@ -42,6 +61,10 @@ const agregarVenta = async () => {
   $('#precio').val(rowData.data[0].precio);
   $('#cantidad').val(1)
   calcular_total()
+  total = 0
+  $('#monto_neto').val(0);
+  $('#monto_bruto').val(0);
+  $('#abonar').val(0);
   $('#AgregarVentaModal').modal('toggle');
 };
 
@@ -91,7 +114,13 @@ function agregar_producto() {
 
   console.log(fila)
   carrito_productos[id_producto] = { precio: precio, cantidad: cantidad }
+
+  total = total + cantidad*precio
+  $('#monto_neto').val(total);
+  $('#monto_bruto').val(total*1.19);
+
 }
+
 
 
 const agregar_venta = async () => {
@@ -99,10 +128,12 @@ const agregar_venta = async () => {
   lugar = document.getElementById('lugar').value
   fecha = document.getElementById('fecha').value
   cliente = document.getElementById('cliente').value
+  abonado = document.getElementById('abonar').value
+  tipo_abono = document.getElementById('tipo_abono').value
 
   const response = await fetch('/api/ventas/agregar', {
     method: 'PUT',
-    body: JSON.stringify({ lugar: lugar, fecha: fecha, cliente: cliente, carrito:carrito_productos }), // string or object
+    body: JSON.stringify({ lugar: lugar, fecha: fecha, cliente: cliente, carrito:carrito_productos, abonado:abonado,tipo_abono:tipo_abono}), // string or object
     headers: {
       'Content-Type': 'application/json'
     }

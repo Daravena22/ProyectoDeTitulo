@@ -7,9 +7,14 @@ from app.modelos.producto import Producto
 from app.common.sql_utils import SqlUtils
 from app.modelos.venta import Venta
 from app.modelos.cliente import Cliente
+from sqlalchemy import or_ , func
+from app.modelos.detalle_venta import Detalle_venta
+from app.modelos.abono import Abono
+from app.modelos.tipo_abono import Tipo_abono
 
 api_ventas = Blueprint('api_ventas', __name__, url_prefix='/api/ventas')
 
+VALOR_IVA = 0.19
 
 @api_ventas.route("/agregar", methods=["PUT"])
 @login_required
@@ -19,19 +24,61 @@ def agregar_venta():
     fecha = valores['fecha']
     cliente_id = valores['cliente']
     carrito = valores['carrito']
-    folio = db.session.query(Folios).order_by(Folios.fecha_asignacion).first()
+    abonado = int(valores['abonado'])
+    tipo_abono = valores['tipo_abono']
+    folios : Folios = db.session.query(Folios).filter(or_(Folios.ultimo_utilizado != Folios.rango_hasta,Folios.ultimo_utilizado == None)).order_by(Folios.fecha_asignacion).first()
+    if folios.ultimo_utilizado is None:
+        folio = folios.rango_desde
+    else:
+        folio = int(folios.ultimo_utilizado) + 1
 
-
-    return jsonify({"status":'ok'}), 200
 
     venta = Venta()
-    venta.id = id
+    venta.folio = folio
     venta.lugar = lugar
     venta.fecha = fecha
     venta.cliente_id = cliente_id
+    venta.total_abonado = abonado
     
-
+    monto_neto = 0.0
+    
+    for producto_id in carrito: 
+        producto = carrito[producto_id]
+        unidades = int(producto['cantidad'])
+        precio = float(producto['precio'])
+        monto_neto += precio*unidades
+    
+    venta.monto_neto = monto_neto
+    impuesto = monto_neto*VALOR_IVA
+    venta.monto_impuesto = impuesto
+    venta.monto_bruto = monto_neto + impuesto
     db.session.add(venta)
+    db.session.flush()
+
+    for producto_id in carrito: 
+        producto = carrito[producto_id]
+        detalle_venta = Detalle_venta()
+        detalle_venta.venta_id = venta.id
+        detalle_venta.producto_id = producto_id
+        detalle_venta.unidades = int(producto['cantidad'])
+        db.session.add(detalle_venta)
+
+    folios.ultimo_utilizado = folio
+    
+    if  abonado>0:
+        abono = Abono()
+        abono.monto = abonado
+        abono.cliente_id = cliente_id
+        abono.fecha = fecha
+        abono.tipo_abono_id = tipo_abono
+        db.session.add(abono)
+        
+    if venta.monto_bruto != abonado:
+
+        cliente:Cliente = db.session.query(Cliente).filter(Cliente.id==cliente_id).first()
+        monto = venta.monto_bruto - abonado
+        cliente.deuda = cliente.deuda + monto
+
     db.session.commit()
     return jsonify({"status":'ok'}), 200
 
@@ -42,7 +89,7 @@ def listar_ventas():
     start = int(request.args.get("start"))
     pagina_index = int(start/pagina_lenght+1)
     draw = int(request.args.get("draw"))
-    query = db.session.query(Venta.id ,Venta.fecha,Venta.folio, Venta.monto_bruto.label('total'),Venta.total_abonado.label('abonado')).join(Cliente,Venta.cliente_id == Cliente.id).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
+    query = db.session.query(Venta.id ,Venta.fecha,Venta.folio,func.concat(Cliente.nombre, ' ', Cliente.apellido).label('cliente'), Venta.monto_bruto.label('total'),Venta.total_abonado.label('abonado')).join(Cliente,Venta.cliente_id == Cliente.id).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
     rows=query.items
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})

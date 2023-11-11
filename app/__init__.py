@@ -3,12 +3,17 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from app.modelos import importar_modelos
 from flask_login import LoginManager
+from app.configs.app import AppConfigs
+from app.configs.database import DatabaseConfigs
+from app.configs.logging import LoggingConfigs
+
+LoggingConfigs.init()
 
 app = Flask(__name__) 
 
-app.config['SECRET_KEY'] = "1234"
+app.config['SECRET_KEY'] = AppConfigs.get_secret_key()
 
-database_uri = "mysql+pymysql://root:65412@localhost:3306/NellyJoyas"
+database_uri = DatabaseConfigs.get_uri()
 app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {'pool_size' : 100, 'pool_recycle' : 280}
 db = SQLAlchemy(app)
@@ -75,3 +80,6 @@ app.register_blueprint(ventas)
 
 from app.api.ventas import api_ventas
 app.register_blueprint(api_ventas)
+
+from app.api.mantenedores.tipo_abono import api_tipo_abono
+app.register_blueprint(api_tipo_abono)

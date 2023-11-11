@@ -1,103 +1,132 @@
-<div class="modal modal-xl fade" id="AgregarVentaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Venta</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form>
+<div class="modal modal-xl fade" id="AgregarVentaModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Venta</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
 
-                  
-                  <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link active" id="datos-tab" data-bs-toggle="tab" data-bs-target="#datos-tab-pane" type="button" role="tab" aria-controls="datos-tab-pane" aria-selected="true">DATOS</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="productos-tab" data-bs-toggle="tab" data-bs-target="#productos-tab-pane" type="button" role="tab" aria-controls="productos-tab-pane" aria-selected="false">Productos</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="resumen-tab" data-bs-toggle="tab" data-bs-target="#resumen-tab-pane" type="button" role="tab" aria-controls="resumen-tab-pane" aria-selected="false">Resumen</button>
-                    </li>
-                   
-                  </ul>
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="datos-tab-pane" role="tabpanel" aria-labelledby="datos-tab" tabindex="0">
-                        
-                <div class="mb-3 mt-4">
-                    <label for="lugar" class="form-label">Ingresar Lugar</label>
-                    <input type="text" class="form-control" id="lugar">
-                  </div>
-  
-                  <div class="mb-3">
-                    <label for="fecha">Fecha</label>
-                    <input id="fecha" class="form-control" type="date" />
-                    <span id="fechaSelected"></span>
-                </div>
-  
-                    <div class="mb-3">
-                        <label for="cliente" class="form-label">Cliente</label>
-                        <select id="cliente" class="form-select">
-                        </select>
-                   
 
-                    </div>
-                    
-                    </div>
-                    <div class="tab-pane fade" id="productos-tab-pane" role="tabpanel" aria-labelledby="productos" tabindex="0">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="datos-tab" data-bs-toggle="tab" data-bs-target="#datos-tab-pane"
+                type="button" role="tab" aria-controls="datos-tab-pane" aria-selected="true">DATOS</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="productos-tab" data-bs-toggle="tab" data-bs-target="#productos-tab-pane"
+                type="button" role="tab" aria-controls="productos-tab-pane" aria-selected="false">Productos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pago-tab" data-bs-toggle="tab" data-bs-target="#pago-tab-pane" type="button"
+                role="tab" aria-controls="pago-tab-pane" aria-selected="false">Pago</button>
+            </li>
 
-                      <div class="mb-3">
-                        <label for="productos" class="form-label">Productos</label>
-                        <select id="productos" class="form-select" onchange="seleccionar_producto(this)">
-                        </select>
-                    </div>
 
-                    <div class="mb-3">
-                      <label for="precio" class="form-label">Precio</label>
-                      <input readonly type="number" class="form-control" id="precio">
-                    </div>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="datos-tab-pane" role="tabpanel" aria-labelledby="datos-tab"
+              tabindex="0">
 
-                    <div class="mb-3">
-                      <label for="cantidad" class="form-label">Cantidad</label>
-                      <input type="number" class="form-control" id="cantidad" onchange="calcular_total()">
-                    </div>
+              <div class="mb-3 mt-4">
+                <label for="lugar" class="form-label">Ingresar Lugar</label>
+                <input type="text" class="form-control" id="lugar">
+              </div>
 
-                    <div class="mb-3">
-                      <label for="total" class="form-label">Total</label>
-                      <input readonly type="number" class="form-control" id="total">
-                    </div>
+              <div class="mb-3">
+                <label for="fecha">Fecha</label>
+                <input id="fecha" class="form-control" type="date" />
+                <span id="fechaSelected"></span>
+              </div>
 
-                    <button type="button" class="btn btn-primary" onclick="agregar_producto()">Guardar Producto</button>
-            
-                    <table class="table table-striped" id="carrito">
-                      <thead>
-                        <tr>
-                          <th scope="col">PRODUCTO</th>
-                          <th scope="col">CANTIDAD</th>
-                          <th scope="col">PRECIO UNITARIO</th>
-                          <th scope="col">TOTAL</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        
-                      </tbody>
-                    </table>
-                    
-                    <div class="tab-pane fade" id="resumen-tab-pane" role="tabpanel" aria-labelledby="resumen-tab" tabindex="0">
+              <div class="mb-3">
+                <label for="cliente" class="form-label">Cliente</label>
+                <select id="cliente" class="form-select">
+                </select>
 
-                    </div>
-                    
-                  </div>
-              </form>
+              </div>
 
-          
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="agregar_venta()">Guardar Venta</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        
-          <!-- <button type="button" class="btn btn-primary" onclick="agregarCliente()">Guardar Cliente</button> -->
-        </div>
+            </div>
+            <div class="tab-pane fade" id="productos-tab-pane" role="tabpanel" aria-labelledby="productos" tabindex="0">
+
+              <div class="mb-3">
+                <label for="productos" class="form-label">Productos</label>
+                <select id="productos" class="form-select" onchange="seleccionar_producto(this)">
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="precio" class="form-label">Precio</label>
+                <input readonly type="number" class="form-control" id="precio">
+              </div>
+
+              <div class="mb-3">
+                <label for="cantidad" class="form-label">Cantidad</label>
+                <input type="number" class="form-control" id="cantidad" onchange="calcular_total()">
+              </div>
+
+              <div class="mb-3">
+                <label for="total" class="form-label">Total</label>
+                <input readonly type="number" class="form-control" id="total">
+              </div>
+
+
+
+              <button type="button" class="btn btn-primary" onclick="agregar_producto()">Guardar Producto</button>
+
+              <table class="table table-striped" id="carrito">
+                <thead>
+                  <tr>
+                    <th scope="col">PRODUCTO</th>
+                    <th scope="col">CANTIDAD</th>
+                    <th scope="col">PRECIO UNITARIO</th>
+                    <th scope="col">TOTAL</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="pago-tab-pane" role="tabpanel" aria-labelledby="pago-tab" tabindex="0">
+
+              <div class="mb-3">
+                <label for="monto_neto" class="form-label">Total NETO</label>
+                <input readonly type="number" class="form-control" id="monto_neto">
+              </div>
+
+              <div class="mb-3">
+                <label for="monto_bruto" class="form-label">Total BRUTO</label>
+                <input readonly type="number" class="form-control" id="monto_bruto">
+              </div>
+
+              <div class="mb-3">
+                <label for="abonar" class="form-label">Abonar</label>
+                <input type="number" class="form-control" id="abonar">
+              </div>
+
+              <div class="mb-3">
+                <label for="tipo_abono" class="form-label">Tipo Abono</label>
+                <select id="tipo_abono" class="form-select">
+                </select>
+              </div>
+
+
+            </div>
+
+
+        </form>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="agregar_venta()">Guardar Venta</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+        <!-- <button type="button" class="btn btn-primary" onclick="agregarCliente()">Guardar Cliente</button> -->
       </div>
     </div>
   </div>
+</div>

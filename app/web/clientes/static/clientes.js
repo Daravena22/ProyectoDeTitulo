@@ -5,6 +5,7 @@ const agregarCliente = async () => {
   nombre = document.getElementById('nombre').value
   telefono = document.getElementById('telefono').value
   direccion = document.getElementById('direccion').value
+  
 
   if (!/^[0-9]{8}-[0-9kK]$/.test(rut)) {
     mostrarMensajeError('El RUT no tiene el formato correcto (xxxxxxxx-x o xxxxxxxx-k).');
@@ -72,6 +73,7 @@ $(document).ready(function () {
       { data: 'nombre', title: 'NOMBRE' },
       { data: 'telefono', title: 'TELEFONO' },
       { data: 'direccion', title: 'DIRECCION' },
+      { data: 'deuda', title: 'DEUDA' },
       {
         data: null, title: "ACCIONES",
         render: function (data, type, row) {

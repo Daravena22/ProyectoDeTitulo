@@ -17,6 +17,7 @@ def agregar_cliente():
     nombre = valores['nombre']
     telefono = valores['telefono']
     direccion = valores['direccion']
+    
 
     cliente = Cliente()
     cliente.rut = rut
@@ -24,6 +25,7 @@ def agregar_cliente():
     cliente.nombre = nombre
     cliente.telefono = telefono
     cliente.direccion = direccion
+    cliente.deuda = 0
 
     db.session.add(cliente)
     db.session.commit()
@@ -37,7 +39,7 @@ def listar_clientes():
     start = int(request.args.get("start"))
     pagina_index = int(start/pagina_lenght+1)
     draw = int(request.args.get("draw"))
-    query = db.session.query(Cliente.id,Cliente.rut,Cliente.apellido,Cliente.nombre,Cliente.telefono,Cliente.direccion).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
+    query = db.session.query(Cliente.id,Cliente.rut,Cliente.apellido,Cliente.nombre,Cliente.telefono,Cliente.direccion, Cliente.deuda).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
     rows=query.items
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})
