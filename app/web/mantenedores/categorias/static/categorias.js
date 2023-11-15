@@ -33,7 +33,21 @@ const agregarCategoria = async () => {
               '<button type="button" class="btn btn-primary editar-btn" onclick="editarCategoria(' + row.id + ')">Editar</button>';
           }
         }
-      ]
+      ],
+      "language": {
+        "lengthMenu": "Mostrar _MENU_ registros por página",
+        "zeroRecords": "No se han encontrado Categorías",
+        "info": "Mostrando página _PAGE_ de _PAGES_",
+        "search": "Buscar Categoría",
+        "infoEmpty": "No hay registros disponibles",
+        "infoFiltered": "(filtrados de _MAX_ registros totales)",
+        "paginate":{
+          "first": "Primero",
+           "last" : "Ültimo",
+           "next": "Siguiente",
+           "previous": "Anterior"
+        }
+      }
     });
   });
   

@@ -44,7 +44,7 @@ const agregarVenta = async () => {
       'Content-Type': 'application/json'
     }
   });
-  
+
   rowData = await response.json();
   const listadoproducto = document.getElementById('productos');
   listadoproducto.innerHTML = "";
@@ -115,9 +115,9 @@ function agregar_producto() {
   console.log(fila)
   carrito_productos[id_producto] = { precio: precio, cantidad: cantidad }
 
-  total = total + cantidad*precio
+  total = total + cantidad * precio
   $('#monto_neto').val(total);
-  $('#monto_bruto').val(total*1.19);
+  $('#monto_bruto').val(total * 1.19);
 
 }
 
@@ -133,7 +133,7 @@ const agregar_venta = async () => {
 
   const response = await fetch('/api/ventas/agregar', {
     method: 'PUT',
-    body: JSON.stringify({ lugar: lugar, fecha: fecha, cliente: cliente, carrito:carrito_productos, abonado:abonado,tipo_abono:tipo_abono}), // string or object
+    body: JSON.stringify({ lugar: lugar, fecha: fecha, cliente: cliente, carrito: carrito_productos, abonado: abonado, tipo_abono: tipo_abono }), // string or object
     headers: {
       'Content-Type': 'application/json'
     }
@@ -162,6 +162,7 @@ $(document).ready(function () {
 
       { data: 'folio', title: 'FOLIO' },
       { data: 'cliente', title: 'CLIENTE' },
+      { data: 'fecha', title: 'FECHA' },
       { data: 'total', title: 'TOTAL' },
       { data: 'abonado', title: 'ABONADO' },
 
@@ -175,8 +176,57 @@ $(document).ready(function () {
       // }
 
       // Configura tus columnas aquí
-    ]
+
+    ],
+    "language": {
+      "lengthMenu": "Mostrar _MENU_ registros por página",
+      "zeroRecords": "No se han encontrado Clientes",
+      "info": "Mostrando página _PAGE_ de _PAGES_",
+      "search": "Buscar Venta",
+      "infoEmpty": "No hay registros disponibles",
+      "infoFiltered": "(filtrados de _MAX_ registros totales)",
+      "paginate":{
+        "first": "Primero",
+         "last" : "Ültimo",
+         "next": "Siguiente",
+         "previous": "Anterior"
+      }
+    }
   });
 });
 
 
+function agregar_venta_sgte_pestana() {
+  if (document.getElementById('datos-tab').classList.contains('active')) {
+    document.getElementById('datos-tab').classList.remove('active');
+    document.getElementById('productos-tab').classList.add('active');
+    document.getElementById('datos-tab-pane').classList.remove('show', 'active');
+    document.getElementById('productos-tab-pane').classList.add('show', 'active');
+  }
+
+  else if (document.getElementById('productos-tab').classList.contains('active')) {
+    document.getElementById('productos-tab').classList.remove('active');
+    document.getElementById('pago-tab').classList.add('active');
+    document.getElementById('productos-tab-pane').classList.remove('show', 'active');
+    document.getElementById('pago-tab-pane').classList.add('show', 'active');
+  }
+
+}
+
+function agregar_venta_ant_pestana() {
+
+  if (document.getElementById('productos-tab').classList.contains('active')) {
+    document.getElementById('productos-tab').classList.remove('active');
+    document.getElementById('datos-tab').classList.add('active');
+    document.getElementById('productos-tab-pane').classList.remove('show', 'active');
+    document.getElementById('datos-tab-pane').classList.add('show', 'active');
+  }
+
+  else if (document.getElementById('pago-tab').classList.contains('active')) {
+    document.getElementById('pago-tab').classList.remove('active');
+    document.getElementById('productos-tab').classList.add('active');
+    document.getElementById('pago-tab-pane').classList.remove('show', 'active');
+    document.getElementById('productos-tab-pane').classList.add('show', 'active');
+  }
+
+}

@@ -64,10 +64,8 @@ $(document).ready(function () {
     ajax: {
       url: '/api/clientes/listar',
       type: 'GET',
-
     },
     columns: [
-      { data: 'id', title: 'ID' },
       { data: 'rut', title: 'RUT' },
       { data: 'apellido', title: 'APELLIDO' },
       { data: 'nombre', title: 'NOMBRE' },
@@ -81,8 +79,21 @@ $(document).ready(function () {
             '<button type="button" class="btn btn-primary editar-btn" onclick="editarCliente(' + row.id + ')">Editar</button>';
         }
       }
-
-    ]
+    ],
+    "language": {
+      "lengthMenu": "Mostrar _MENU_ registros por página",
+      "zeroRecords": "No se han encontrado Clientes",
+      "info": "Mostrando página _PAGE_ de _PAGES_",
+      "search": "Buscar Cliente",
+      "infoEmpty": "No hay registros disponibles",
+      "infoFiltered": "(filtrados de _MAX_ registros totales)",
+      "paginate":{
+        "first": "Primero",
+         "last" : "Ültimo",
+         "next": "Siguiente",
+         "previous": "Anterior"
+      }
+    }
   });
 });
 

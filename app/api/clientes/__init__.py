@@ -50,7 +50,7 @@ def eliminar_cliente():
     valores = request.get_json()
     id = valores["id"]
     cliente = db.session.query(Cliente).filter(Cliente.id==id).first()
-    db.session.delete(cliente)
+    cliente.estado = 0
     db.session.commit()
     return jsonify({"status":'ok'}), 200
 
@@ -61,10 +61,10 @@ def eliminar_cliente():
 def datos_cliente(id_cliente):
 
   
-    # Obtén el cliente que deseas editar desde la base de datos
+  
     cliente = db.session.query(Cliente).filter(Cliente.id == id_cliente).first()
     
-    # Devuelve los datos del cliente como JSON, incluso si el cliente no se encuentra
+    
     cliente_data = {
         "rut": cliente.rut,
         "apellido": cliente.apellido,
@@ -79,6 +79,15 @@ def datos_cliente(id_cliente):
 def listar_todos_clientes():
     
     rows = db.session.query(Cliente.id, Cliente.rut, Cliente.nombre, Cliente.apellido).all()
+    data = SqlUtils.rows_to_dict(rows)
+    
+    return jsonify({"data": data})
+
+@api_clientes.route("/listartodo_deuda", methods=["GET"])
+@login_required
+def listar_todos_clientes_deuda():
+    
+    rows = db.session.query(Cliente.id, Cliente.nombre, Cliente.apellido, Cliente.deuda).all()
     data = SqlUtils.rows_to_dict(rows)
     
     return jsonify({"data": data})

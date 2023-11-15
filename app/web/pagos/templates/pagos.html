@@ -2,38 +2,40 @@
 {% block contenido %}
   <!-- Encabezado "CLIENTES" -->
   <div style="background-color: #E6E6FA; padding: 10px; text-align: center;">
-    <h5 style="color: rgb(61, 20, 80);">CLIENTES</h5>
+    <h5 style="color: rgb(61, 20, 80);">PAGOS</h5>
   </div>
 
   <!-- Botón para agregar cliente y tabla DataTable -->
-  <button type="button" class="btn btn-primary m-4" data-bs-toggle="modal" data-bs-target="#AgregarClienteModal">
-    Agregar Cliente
+  <button type="button" class="btn btn-primary m-4" onclick="agregarPago()">
+    Agregar Pago
   </button>
 
+  <div class="mb-3">
+    <label for="cliente" class="form-label">Cliente</label>
+    <select id="cliente" class="form-select" onchange="cargar_datos_cliente()">
+    </select>
+  </div>
+
   <div class="table-responsive m-4">
-    <table id="datos_clientes" class="table table-striped table-bordered">
+    <table id="datos_pagos" class="table table-striped table-bordered">
       <thead>
         <tr>
          
-          <th>RUT</th>
-          <th>APELLIDO</th>
-          <th>NOMBRE</th>
-          <th>TELEFONO</th>
-          <th>DIRECCION</th>
-          <th>DEUDA</th>
-          <th>ACCIONES</th>
+          <th>CLIENTE</th>
+          <th>MONTO</th>
+          <th>FECHA</th>
+
         </tr>
       </thead>
     </table>
   </div>
 
-  {% include 'agregar_cliente.html' %}
-  {% include 'editar_cliente.html' %}
-  <script src="{{ url_for('clientes.static', filename='clientes.js') }}"></script>
+  {% include 'agregar_pago.html' %}
+  <script src="{{ url_for('pagos.static', filename='pagos.js') }}"></script>
 
   <style>
     /* Estilos para la tabla DataTable */
-    #datos_clientes {
+    #datos_pagos {
       width: 80%; /* Cambia el porcentaje según el tamaño deseado */
       margin: 0 auto; /* Centra la tabla horizontalmente */
     }

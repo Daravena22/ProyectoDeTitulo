@@ -9,9 +9,13 @@
           <form>  
             <input type="text" class="form-control" id="editar_id_producto" hidden>
             <div class="mb-3">
-                <label for="editar_genero" class="form-label">Genero</label>
-                <input type="text" class="form-control" id="editar_genero">
-              </div>
+              <label for="editar_genero" class="form-label">Seleccionar Género</label>
+              <select class="form-select" id="editar_genero">
+                  <option selected>Seleccionar Género</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+              </select>
+          </div>
             <div class="mb-3">
               <label for="editar_nombre" class="form-label">Nombre</label>
               <input type="text" class="form-control" id="editar_nombre">

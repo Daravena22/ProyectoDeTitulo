@@ -1,0 +1,51 @@
+<div class="modal fade" id="AgregarPagoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Pago</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+
+              <div class="mb-3">
+                <label for="pago_cliente" class="form-label">Cliente</label>
+                <select id="pago_cliente" class="form-select" onchange="seleccionar_cliente(this)">
+                </select>
+              </div>
+
+                  <div class="mb-3">
+                    <label for="monto" class="form-label">Monto</label>
+                    <input type="number" class="form-control" id="monto">
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="deuda" class="form-label">Deuda</label>
+                    <input readonly type="number" class="form-control" id="deuda">
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="fecha">Fecha</label>
+                    <input id="fecha" class="form-control" type="date" />
+                    <span id="fechaSelected"></span>
+                  </div>
+                 
+
+                  <div class="mb-3">
+                    <label for="tipo_abono" class="form-label">Tipo Abono</label>
+                    <select id="tipo_abono" class="form-select">
+                    </select>
+                  </div>
+
+                  
+
+              </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" onclick="guardarPago()">Guardar Pago</button>
+        </div>
+      </div>
+    </div>
+  </div>

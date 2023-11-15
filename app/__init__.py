@@ -83,3 +83,9 @@ app.register_blueprint(api_ventas)
 
 from app.api.mantenedores.tipo_abono import api_tipo_abono
 app.register_blueprint(api_tipo_abono)
+
+from app.web.pagos import pagos
+app.register_blueprint(pagos)
+
+from app.api.pagos import api_pagos
+app.register_blueprint(api_pagos)

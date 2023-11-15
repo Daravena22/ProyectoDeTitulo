@@ -14,6 +14,8 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="datos-tab" data-bs-toggle="tab" data-bs-target="#datos-tab-pane"
                 type="button" role="tab" aria-controls="datos-tab-pane" aria-selected="true">DATOS</button>
+
+
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="productos-tab" data-bs-toggle="tab" data-bs-target="#productos-tab-pane"
@@ -23,9 +25,8 @@
               <button class="nav-link" id="pago-tab" data-bs-toggle="tab" data-bs-target="#pago-tab-pane" type="button"
                 role="tab" aria-controls="pago-tab-pane" aria-selected="false">Pago</button>
             </li>
-
-
           </ul>
+
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="datos-tab-pane" role="tabpanel" aria-labelledby="datos-tab"
               tabindex="0">
@@ -45,10 +46,15 @@
                 <label for="cliente" class="form-label">Cliente</label>
                 <select id="cliente" class="form-select">
                 </select>
+              </div>
 
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="agregar_venta_sgte_pestana()">Siguiente</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               </div>
 
             </div>
+
             <div class="tab-pane fade" id="productos-tab-pane" role="tabpanel" aria-labelledby="productos" tabindex="0">
 
               <div class="mb-3">
@@ -89,7 +95,17 @@
 
                 </tbody>
               </table>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="agregar_venta_ant_pestana()">Anterior</button>
+                <button type="button" class="btn btn-primary" onclick="agregar_venta_sgte_pestana()">Siguiente</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+
             </div>
+
+
+
             <div class="tab-pane fade" id="pago-tab-pane" role="tabpanel" aria-labelledby="pago-tab" tabindex="0">
 
               <div class="mb-3">
@@ -113,6 +129,11 @@
                 </select>
               </div>
 
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="agregar_venta_ant_pestana()">Anterior</button>
+                <button type="button" class="btn btn-primary" onclick="agregar_venta()">Guardar Venta</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
 
             </div>
 
@@ -121,12 +142,15 @@
 
 
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="agregar_venta()">Guardar Venta</button>
+
+
+      <!-- <div class="modal-footer">
+        <button class="btn btn-primary" onclick="agregar_venta_ant_pestana()">Anterior</button>
+        <button class="btn btn-primary" onclick="agregar_venta_sgte_pestana()">Siguiente</button>
+
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
 
-        <!-- <button type="button" class="btn btn-primary" onclick="agregarCliente()">Guardar Cliente</button> -->
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

@@ -34,7 +34,6 @@
       listadomaterial.appendChild(option);
     });
 
-    //$('#editar_id').val(id_cliente);
     $('#AgregarProductoModal').modal('toggle');
   };
 
@@ -48,10 +47,7 @@ const agregarProductoGuardar = async () => {
     categoria = document.getElementById('categoria').value
     material = document.getElementById('material').value
 
-    if (/\d/.test(genero)) {
-      mostrarMensajeError('El Genero no puede contener números.');
-      return;
-    }
+   
 
     if (/\d/.test(nombre)) {
       mostrarMensajeError('El nombre no puede contener números.');
@@ -124,7 +120,21 @@ const agregarProductoGuardar = async () => {
         }
   
         // Configura tus columnas aquí
-      ]
+      ],
+      "language": {
+        "lengthMenu": "Mostrar _MENU_ registros por página",
+        "zeroRecords": "No se han encontrado Productos",
+        "info": "Mostrando página _PAGE_ de _PAGES_",
+        "search": "Buscar Productos",
+        "infoEmpty": "No hay registros disponibles",
+        "infoFiltered": "(filtrados de _MAX_ registros totales)",
+        "paginate":{
+          "first": "Primero",
+           "last" : "Ültimo",
+           "next": "Siguiente",
+           "previous": "Anterior"
+        }
+      }
     });
   });
 
