@@ -97,31 +97,62 @@ function agregar_producto() {
   producto = document.getElementById('productos').options[indice].text
   precio = document.getElementById('precio').value
   cantidad = document.getElementById('cantidad').value
-  var carrito = document.getElementById("carrito");
 
-  fila = carrito.insertRow();
-  celda = fila.insertCell();
-  celda.innerHTML = producto;
 
-  celda = fila.insertCell();
-  celda.innerHTML = cantidad;
+  carrito_productos[id_producto] = { precio: precio, cantidad: cantidad, nombre:producto, id:id_producto}
 
-  celda = fila.insertCell();
-  celda.innerHTML = precio;
-
-  celda = fila.insertCell();
-  celda.innerHTML = cantidad * precio;
-
-  console.log(fila)
-  carrito_productos[id_producto] = { precio: precio, cantidad: cantidad }
-
-  total = total + cantidad * precio
-  $('#monto_neto').val(total);
-  $('#monto_bruto').val(total * 1.19);
-
+  pintar_carrito()
+  
 }
 
+function calcular_totales(){
+  total = 0
+  for (var key in carrito_productos){
 
+    item = carrito_productos[key]
+    total = total + item.cantidad * item.precio 
+  }
+  $('#monto_neto').val(total);
+  $('#monto_bruto').val(total * 1.19);
+}
+
+function pintar_carrito(){
+  
+  var carrito = document.getElementById("carrito");
+  var tableHeaderRowCount = 1;
+  var rowCount = carrito.rows.length;
+  for (var i = tableHeaderRowCount; i < rowCount; i++) {
+    carrito.deleteRow(tableHeaderRowCount);
+}
+  for (var key in carrito_productos){
+    item = carrito_productos[key]
+    fila = carrito.insertRow();
+    celda = fila.insertCell();
+    celda.innerHTML = item.nombre;
+  
+    celda = fila.insertCell();
+    celda.innerHTML = item.cantidad;
+  
+    celda = fila.insertCell();
+    celda.innerHTML = item.precio;
+  
+    celda = fila.insertCell();
+    celda.innerHTML = item.cantidad * item.precio;
+  
+    celda = fila.insertCell();
+    celda.innerHTML = '<button type="button" class="btn btn-danger" onclick="quitar_producto('+ item.id + ')">Quitar Producto</button>'
+    
+  };
+
+  calcular_totales()
+}
+
+function quitar_producto (id_producto){
+  delete carrito_productos[id_producto]
+  pintar_carrito()
+ 
+  
+}
 
 const agregar_venta = async () => {
 

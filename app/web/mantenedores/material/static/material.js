@@ -40,10 +40,23 @@ const agregarMaterial = async () => {
         }
   
         // Configura tus columnas aquí
-      ]
-    });
+      ],
+      "language": {
+        "lengthMenu": "Mostrar _MENU_ registros por página",
+        "zeroRecords": "No existen materiales cargados",
+        "info": "Mostrando página _PAGE_ de _PAGES_",
+        "search": "Buscar Material",
+        "infoEmpty": "No hay registros disponibles",
+        "infoFiltered": "(filtrados de _MAX_ registros totales)",
+        "paginate":{
+          "first": "Primero",
+           "last" : "Ültimo",
+           "next": "Siguiente",
+           "previous": "Anterior"
+        }
+    }
   });
-  
+});
   
   const eliminarMaterial = async (id_material) => {
     const response = await fetch('/api/mantenedores/material/eliminar', {

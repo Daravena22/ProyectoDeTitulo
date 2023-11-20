@@ -184,3 +184,4 @@ function mostrarMensajeError(mensaje) {
   // Utilizar Toastr.js u otra biblioteca similar para mostrar mensajes de error
   toastr.error(mensaje, 'Error', { timeOut: 3000 });
 }
+

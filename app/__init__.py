@@ -89,3 +89,6 @@ app.register_blueprint(pagos)
 
 from app.api.pagos import api_pagos
 app.register_blueprint(api_pagos)
+
+from app.api.reportes import api_reportes
+app.register_blueprint(api_reportes)

@@ -49,9 +49,23 @@ $(document).ready(function () {
             }
 
             // Configura tus columnas aquí
-        ]
+        ],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "No existen folios cargados",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "search": "Buscar",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrados de _MAX_ registros totales)",
+            "paginate":{
+              "first": "Primero",
+               "last" : "Ültimo",
+               "next": "Siguiente",
+               "previous": "Anterior"
+            }
+        }
+      });
     });
-});
 
 const eliminarFolios = async (id_folios) => {
     const response = await fetch('/api/mantenedores/folios/eliminar', {

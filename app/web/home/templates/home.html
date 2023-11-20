@@ -1,4 +1,49 @@
-{% extends 'base.html' %} 
-    {% block contenido %} 
-    <h2>Home is working!</h2> 
-    {% endblock %}
+{% extends 'base.html' %}
+
+
+{% block contenido %}
+    <div class="container mt-5">
+        <div class="container mt-5 text-center welcome-container">
+            <h1 class="display-4 text-primary">¡Bienvenida, Nelly!</h1>
+            <p class="lead">Descubre las opciones disponibles para administrar tu negocio en NellyJoyas.</p>
+        </div>
+        
+       
+       
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <h3>Clientes</h3>
+                <!-- <img src="{{ url_for('static', filename='/Imagenes/Clientes.jpg') }}" alt="Clientes" class="img-fluid mb-3" style="max-height: 150px;"> -->
+                <p>Registra nuevos clientes que has adquirido.</p>
+                <a href="{{ url_for('clientes.root') }}" class="btn btn-primary btn-block">Administrar Clientes</a>
+            </div>
+            <div class="col-md-3">
+                <h3>Productos</h3>
+                <!-- <img src="{{ url_for('static', filename='/Imagenes/JoyasOro.jpg') }}" alt="Joyería elegante" class="img-fluid" alt="Productos" class="img-fluid mb-3" style="max-height: 250px;"> -->
+                <p>Registra y gestiona los productos que tienes acualmente.</p>
+                <a href="{{ url_for('productos.root') }}" class="btn btn-primary btn-block">Administrar Productos</a>
+            </div>
+            <div class="col-md-3">
+                <h3>Ventas</h3>
+                <!-- <img src="{{ url_for('static', filename='/Imagenes/Ventas.jpg') }}" alt="Ventas" class="img-fluid mb-3" style="max-height: 150px;"> -->
+                <p>Registra nuevas ventas y mantén un registro detallado.</p>
+                <a href="{{ url_for('ventas.root') }}" class="btn btn-primary btn-block">Administrar Ventas</a>
+            </div>
+            <div class="col-md-3">
+                <h3>Pagos</h3>
+                <!-- <img src="{{ url_for('static', filename='/Imagenes/Pagos.jpg') }}" alt="Pagos" class="img-fluid mb-3" style="max-height: 150px;"> -->
+                <p>Registra los pagos de los clientes de manera fácil y rápida.</p>
+                <a href="{{ url_for('pagos.root') }}" class="btn btn-primary btn-block">Administrar Pagos</a>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h3>Reportes</h3>
+                <!-- <img src="{{ url_for('static', filename='/Imagenes/Reportes.jpg') }}" alt="Reportes" class="img-fluid mb-3" style="max-height: 150px;"> -->
+                <p>Obtén informes detallados sobre las actividades del negocio.</p>
+                <a href="#" class="btn btn-primary btn-block">Generar Reportes</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

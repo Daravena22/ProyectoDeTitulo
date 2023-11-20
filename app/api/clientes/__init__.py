@@ -1,9 +1,9 @@
-from flask import Blueprint, jsonify, redirect, render_template, request, url_for
-from flask_login import login_required, login_user, logout_user
-from werkzeug.security import check_password_hash
+from flask import Blueprint, jsonify, request
+from flask_login import login_required
 from app import db 
 from app.modelos.cliente import Cliente 
 from app.common.sql_utils import SqlUtils
+from sqlalchemy import or_ 
 
 api_clientes = Blueprint('api_clientes', __name__, url_prefix='/api/clientes')
 
@@ -39,7 +39,13 @@ def listar_clientes():
     start = int(request.args.get("start"))
     pagina_index = int(start/pagina_lenght+1)
     draw = int(request.args.get("draw"))
-    query = db.session.query(Cliente.id,Cliente.rut,Cliente.apellido,Cliente.nombre,Cliente.telefono,Cliente.direccion, Cliente.deuda).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
+    buscar = request.args.get("search[value]")
+    buscar_or = [
+        Cliente.rut.like(f"%{buscar}%"),
+        Cliente.nombre.like(f"%{buscar}%"),
+        Cliente.apellido.like(f"%{buscar}%")
+    ]
+    query = db.session.query(Cliente.id,Cliente.rut,Cliente.apellido,Cliente.nombre,Cliente.telefono,Cliente.direccion, Cliente.deuda).filter(or_(*buscar_or)).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
     rows=query.items
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})

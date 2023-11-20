@@ -11,3 +11,9 @@ pytest -flask
 python-dotenv
 colorlog
 concurrent-log-handler
+#reportlab
+fpdf
+kaleido
+dataframe_image
+pandas
+matplotlib

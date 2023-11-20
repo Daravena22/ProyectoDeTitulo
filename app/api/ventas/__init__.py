@@ -89,7 +89,14 @@ def listar_ventas():
     start = int(request.args.get("start"))
     pagina_index = int(start/pagina_lenght+1)
     draw = int(request.args.get("draw"))
-    query = db.session.query(Venta.id ,Venta.fecha,Venta.folio,func.concat(Cliente.nombre, ' ', Cliente.apellido).label('cliente'), Venta.monto_bruto.label('total'),Venta.total_abonado.label('abonado')).join(Cliente,Venta.cliente_id == Cliente.id).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
+    buscar = request.args.get("search[value]")
+    buscar_or = [
+        Cliente.rut.like(f"%{buscar}%"),
+        Cliente.nombre.like(f"%{buscar}%"),
+        Cliente.apellido.like(f"%{buscar}%"),
+        Venta.folio.like(f"%{buscar}%")
+    ]
+    query = db.session.query(Venta.id ,Venta.fecha,Venta.folio,func.concat(Cliente.nombre, ' ', Cliente.apellido).label('cliente'), Venta.monto_bruto.label('total'),Venta.total_abonado.label('abonado')).join(Cliente,Venta.cliente_id == Cliente.id).filter(or_(*buscar_or)).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
     rows=query.items
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})

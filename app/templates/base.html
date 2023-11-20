@@ -12,13 +12,24 @@
             background-color: #F8F4F9;
         }
         
-        /* Estilos del navbar */
+        .content-container {
+        background-color: #FFFFFF; 
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        margin-top: 20px; 
+    }
+
+
         .navbar {
             background-color: #392F5A;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-brand {
             color: #A78FC4;
+            font-size: 1.5em;
+            font-weight: bold;
         }
 
         .navbar-nav .nav-link {
@@ -33,12 +44,48 @@
             background-color: #A78FC4;
             border-color: #A78FC4;
         }
+
+        .card {
+            border: none;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .btn {
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #A78FC4;
+            border-color: #A78FC4;
+        }
+
+         .welcome-container {
+        background-color: rgba(255, 255, 255, 0.178); /* Fondo blanco semi-transparente */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+        margin-top: 50px; /* Mayor separación superior */
+    }
+
+    .welcome-container h1 {
+        font-size: 3em; /* Tamaño de fuente más grande */
+    }
+
+    .welcome-container p {
+        font-size: 1.5em; /* Tamaño de fuente más grande */
+        margin-bottom: 30px; /* Mayor espacio inferior */
+    }
+
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">NellyJoyas</a>
+            <a class="navbar-brand" href="{{url_for('home.root')}}">NellyJoyas</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
