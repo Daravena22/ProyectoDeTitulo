@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div style="background-color: #E6E6FA; padding: 10px; text-align: center;">
+    <h5 style="color: rgb(61, 20, 80);">REPORTE PAGOS</h5>
+  </div>
+
+  <div class="mb-3">
+    <label for="fecha_desde">Fecha Desde</label>
+    <input id="fecha_desde" class="form-control" type="date" />
+    <span id="fechaSelected"></span>
+  </div>
+
+  <div class="mb-3">
+    <label for="fecha_hasta">Fecha Hasta</label>
+    <input id="fecha_hasta" class="form-control" type="date" />
+    <span id="fechaSelected"></span>
+  </div>
+
+
+  <button onclick="generarReportePagos()">Generar Reporte</button>
+
+
+  <script src="{{ url_for('reportePagos.static', filename='reportePagos.js') }}"></script>
+{% endblock %}

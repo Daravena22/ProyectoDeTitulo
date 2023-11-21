@@ -90,5 +90,20 @@ app.register_blueprint(pagos)
 from app.api.pagos import api_pagos
 app.register_blueprint(api_pagos)
 
-from app.api.reportes import api_reportes
-app.register_blueprint(api_reportes)
+from app.api.reportes.reporteClientes import api_reporteClientes
+app.register_blueprint(api_reporteClientes)
+
+from app.web.reportes.clientes import reporteClientes
+app.register_blueprint(reporteClientes)
+
+from app.api.reportes.reportePagos import api_reportePagos
+app.register_blueprint(api_reportePagos)
+
+from app.web.reportes.pagos import reportePagos
+app.register_blueprint(reportePagos)
+
+from app.api.reportes.reporteVentas import api_reporteVentas
+app.register_blueprint(api_reporteVentas)
+
+from app.web.reportes.ventas import reporteVentas
+app.register_blueprint(reporteVentas)

@@ -12,7 +12,7 @@ python-dotenv
 colorlog
 concurrent-log-handler
 #reportlab
-fpdf
+fpdf2
 kaleido
 dataframe_image
 pandas

@@ -115,9 +115,21 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('ventas.root')}}">Ventas</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Reportes</a>
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" id="reportesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Reportes
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="reportesDropdown">
+                                <li><a class="dropdown-item" href="{{url_for('reporteClientes.root')}}">Reporte de Clientes</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('reporteVentas.root')}}">Reporte de Ventas</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('reportePagos.root')}}">Reporte de Pagos</a></li>
+                            </ul>
+                        </div>
                     </li>
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('pagos.root')}}">Pagos</a>
                     </li>
