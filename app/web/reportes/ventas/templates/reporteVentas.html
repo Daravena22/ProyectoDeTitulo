@@ -1,6 +1,70 @@
 {% extends 'base.html' %}
 {% block contenido %}
+
 <div style="background-color: #E6E6FA; padding: 10px; text-align: center;">
-    <h5 style="color: rgb(61, 20, 80);">REPORTE VENTAS</h5>
-  </div>
+  <h5 style="color: rgb(61, 20, 80);">REPORTE VENTAS</h5>
+</div>
+
+<div class="container mt-4">
+  <form class="form-container-reporte">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="fecha-container">
+        <label for="fecha_desde" class="form-label">Fecha Desde</label>
+        <input id="fecha_desde" class="form-control" type="date" />
+        <span id="fechaSelected"></span>
+      </div>
+
+      <div class="fecha-container">
+        <label for="fecha_hasta" class="form-label">Fecha Hasta</label>
+        <input id="fecha_hasta" class="form-control" type="date" />
+        <span id="fechaSelected"></span>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-generar-reporte" onclick="generarReporteVentas()">Generar Reporte</button>
+  </form>
+</div>
+
+<style>
+  .container-reporte {
+    background-color: #F8F4F9;
+    padding: 20px;
+  }
+
+  .form-container-reporte {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+
+  .fecha-container {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  .form-label {
+    color: #392F5A;
+  }
+
+  .form-control {
+    border-color: #392F5A;
+  }
+
+  .btn-generar-reporte {
+    background-color: #A78FC4;
+    border-color: #A78FC4;
+    color: #FFFFFF;
+    margin-top: 10px;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .btn-generar-reporte:hover {
+    background-color: #392F5A;
+    border-color: #392F5A;
+  }
+</style>
+
+  <script src="{{ url_for('reporteVentas.static', filename='reporteVentas.js') }}"></script>
 {% endblock %}

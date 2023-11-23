@@ -1,49 +1,106 @@
 {% extends 'base.html' %}
 
-
 {% block contenido %}
     <div class="container mt-5">
+        <style>
+            .welcome-container {
+                background-color: #392F5A; /* Código de color morado */
+                color: #ffffff; /* Color blanco para el texto */
+                padding: 20px;
+                border-radius: 10px; /* Bordes redondeados */
+            }
+        </style>
+        
         <div class="container mt-5 text-center welcome-container">
-            <h1 class="display-4 text-primary">¡Bienvenida, Nelly!</h1>
+            <h1 class="display-4">¡Bienvenida, Nelly!</h1>
             <p class="lead">Descubre las opciones disponibles para administrar tu negocio en NellyJoyas.</p>
         </div>
         
        
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='/Imagenes/1.jpg') }}" alt="Clientes" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">Clientes</h3>
+                        <p class="card-text">Registra nuevos clientes que has adquirido.</p>
+                        <a href="{{ url_for('clientes.root') }}" class="btn btn-primary btn-block">Administrar Clientes</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='/Imagenes/2.jpg') }}" alt="Productos" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">Productos</h3>
+                        <p class="card-text">Registra y gestiona los productos que tienes actualmente.</p>
+                        <a href="{{ url_for('productos.root') }}" class="btn btn-primary btn-block">Administrar Productos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='/Imagenes/3.jpg') }}" alt="Ventas" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">Ventas</h3>
+                        <p class="card-text">Registra nuevas ventas y mantén un registro detallado.</p>
+                        <a href="{{ url_for('ventas.root') }}" class="btn btn-primary btn-block">Administrar Ventas</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='/Imagenes/joyamorada.jpg') }}" alt="Pagos" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">Pagos</h3>
+                        <p class="card-text">Registra los pagos de los clientes de manera fácil y rápida.</p>
+                        <a href="{{ url_for('pagos.root') }}" class="btn btn-primary btn-block">Administrar Pagos</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='/Imagenes/cliente.jpg') }}" alt="Pagos" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">Generar Reporte Cliente</h3>
+                        <p class="card-text">Obten un reporte del estado de tus Clientes, quienes tienen deuda y quienes tienen sus pagos al día.</p>
+                        <a href="{{url_for('reporteClientes.root')}}" class="btn btn-primary btn-block">Reporte Clientes</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='/Imagenes/oro_morado.jpg') }}" alt="Pagos" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">Generar Reporte Ventas</h3>
+                        <p class="card-text">Obtén un resumen de las ventas realizadas durante un rango de fechas.</p>
+                        <a href="{{url_for('reporteVentas.root')}}"    class="btn btn-primary btn-block">Reporte Ventas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='/Imagenes/4.jpg') }}" alt="Pagos" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">Generar Reporte de Ingresos</h3>
+                        <p class="card-text">Obtén un resumen de todos los ingresos que has recibido durante un rango de fechas.</p>
+                        <a href="{{url_for('reportePagos.root')}}"  class="btn btn-primary btn-block">Reporte Ingresos</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
        
-        <div class="row mt-4">
-            <div class="col-md-3">
-                <h3>Clientes</h3>
-                <!-- <img src="{{ url_for('static', filename='/Imagenes/Clientes.jpg') }}" alt="Clientes" class="img-fluid mb-3" style="max-height: 150px;"> -->
-                <p>Registra nuevos clientes que has adquirido.</p>
-                <a href="{{ url_for('clientes.root') }}" class="btn btn-primary btn-block">Administrar Clientes</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Productos</h3>
-                <!-- <img src="{{ url_for('static', filename='/Imagenes/JoyasOro.jpg') }}" alt="Joyería elegante" class="img-fluid" alt="Productos" class="img-fluid mb-3" style="max-height: 250px;"> -->
-                <p>Registra y gestiona los productos que tienes acualmente.</p>
-                <a href="{{ url_for('productos.root') }}" class="btn btn-primary btn-block">Administrar Productos</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Ventas</h3>
-                <!-- <img src="{{ url_for('static', filename='/Imagenes/Ventas.jpg') }}" alt="Ventas" class="img-fluid mb-3" style="max-height: 150px;"> -->
-                <p>Registra nuevas ventas y mantén un registro detallado.</p>
-                <a href="{{ url_for('ventas.root') }}" class="btn btn-primary btn-block">Administrar Ventas</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Pagos</h3>
-                <!-- <img src="{{ url_for('static', filename='/Imagenes/Pagos.jpg') }}" alt="Pagos" class="img-fluid mb-3" style="max-height: 150px;"> -->
-                <p>Registra los pagos de los clientes de manera fácil y rápida.</p>
-                <a href="{{ url_for('pagos.root') }}" class="btn btn-primary btn-block">Administrar Pagos</a>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <h3>Reportes</h3>
-                <!-- <img src="{{ url_for('static', filename='/Imagenes/Reportes.jpg') }}" alt="Reportes" class="img-fluid mb-3" style="max-height: 150px;"> -->
-                <p>Obtén informes detallados sobre las actividades del negocio.</p>
-                <a href="#" class="btn btn-primary btn-block">Generar Reportes</a>
-            </div>
-        </div>
     </div>
 {% endblock %}
 
+
+<!-- "{{ url_for('static', filename='/Imagenes/1.jpg') }}"
+"{{ url_for('static', filename='/Imagenes/2.jpg') }}"
+"{{ url_for('static', filename='/Imagenes/3.jpg') }}"
+"{{ url_for('static', filename='/Imagenes/fondo_login.jpg') }}"
+"{{ url_for('static', filename='/Imagenes/oro_morado.jpg') }}" -->

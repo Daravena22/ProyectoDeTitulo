@@ -11,6 +11,7 @@ from sqlalchemy import or_ , func
 from app.modelos.detalle_venta import Detalle_venta
 from app.modelos.abono import Abono
 from app.modelos.tipo_abono import Tipo_abono
+from app.modelos.producto import Producto
 
 api_ventas = Blueprint('api_ventas', __name__, url_prefix='/api/ventas')
 

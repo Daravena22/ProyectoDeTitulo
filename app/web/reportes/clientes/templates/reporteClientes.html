@@ -2,53 +2,39 @@
 {% block contenido %}
 
 <div style="background-color: #E6E6FA; padding: 10px; text-align: center;">
-    <h5 style="color: rgb(61, 20, 80);">REPORTE CLIENTES</h5>
-  </div>
+  <h5 style="color: rgb(61, 20, 80);">REPORTE CLIENTES</h5>
+</div>
 
-<button onclick="generarReporteClientes('todos')">Todos los Clientes</button>
-<button onclick="generarReporteClientes('con_deuda')">Clientes con Deuda</button>
-
+<div style="display: flex; justify-content: space-around; margin-top: 20px;">
+  <button onclick="generarReporteClientes('todos')" style="width: 48%; box-sizing: border-box;">Todos los Clientes</button>
+  <button onclick="generarReporteClientes('con_deuda')" style="width: 48%; box-sizing: border-box;">Clientes con Deuda</button>
+</div>
 
 <style>
-    .content-container {
+  .content-container {
       background-color: #FFFFFF;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       margin-top: 20px;
-    }
+  }
 
-    h1 {
+  h1 {
       color: #392F5A;
-    }
+  }
 
-    .btn-primary {
+  .btn-primary {
       background-color: #392F5A;
       border-color: #392F5A;
       color: #FFFFFF;
       margin-right: 10px;
-    }
+  }
 
-    .btn-primary:hover {
+  .btn-primary:hover {
       background-color: #A78FC4;
       border-color: #A78FC4;
-    }
-  </style>
-
-<!-- <script>
-  function generarReporte(tipo) {
-    var url;
-    if (tipo === 'todos') {
-      url = '../api/reportes/reporteClientes/generar';
-    } else if (tipo === 'con_deuda') {
-      // Agrega la lógica para el reporte de clientes con deuda si es necesario
-      url = 'http://localhost:5001/api/reportes/reporteClientes/generarConDeuda';
-    }
-
-    // Redirige a la URL correspondiente
-    window.location.href = url;
   }
-</script> -->
+</style>
 
 
 <script src="{{ url_for('reporteClientes.static', filename='reporteClientes.js') }}"></script>
