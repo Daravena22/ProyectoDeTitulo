@@ -32,12 +32,29 @@
   <script src="{{ url_for('productos.static', filename='productos.js') }}"></script>
 
   <style>
-    /* Estilos para la tabla DataTable */
+
+    
     #datos_productos {
-      width: 80%; /* Cambia el porcentaje según el tamaño deseado */
-      margin: 0 auto; /* Centra la tabla horizontalmente */
+        width: 80%; 
+        margin: 0 auto; 
     }
 
-    /* Define tus estilos personalizados aquí */
-  </style>
+    #datos_productos th,
+    #datos_productos td {
+        text-align: center; 
+    }
+
+    #datos_productos thead th {
+        background-color: rgb(61, 20, 80); 
+        color: #fff; 
+    }
+
+    #datos_productos tbody tr:nth-child(even) {
+        background-color: #f8f9fa; 
+    }
+
+    #datos_productos tbody tr:hover {
+        background-color: #d1ecf1; 
+    }
+</style>
 {% endblock %}

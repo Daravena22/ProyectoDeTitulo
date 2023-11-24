@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, flash
 from flask_login import login_required
 from app import db 
 from app.modelos.cliente import Cliente 
@@ -17,8 +17,13 @@ def agregar_cliente():
     nombre = valores['nombre']
     telefono = valores['telefono']
     direccion = valores['direccion']
-    
 
+
+    cliente_existente = Cliente.query.filter_by(rut=rut).first()
+    if cliente_existente:
+        flash('El rut ya existe. No se puede crear el cliente.', 'error')
+        return jsonify({"status": 'error', "message": 'El RUT ya existe, intente'}), 400
+    
     cliente = Cliente()
     cliente.rut = rut
     cliente.apellido = apellido
@@ -56,7 +61,7 @@ def eliminar_cliente():
     valores = request.get_json()
     id = valores["id"]
     cliente = db.session.query(Cliente).filter(Cliente.id==id).first()
-    cliente.estado = 0
+    db.session.delete(cliente)
     db.session.commit()
     return jsonify({"status":'ok'}), 200
 
@@ -79,6 +84,7 @@ def datos_cliente(id_cliente):
         "direccion": cliente.direccion
     }
     return jsonify(cliente_data), 200
+
 
 @api_clientes.route("/listartodo", methods=["GET"])
 @login_required
@@ -109,6 +115,11 @@ def editar_cliente():
     nombre = valores['nombre']
     telefono = valores['telefono']
     direccion = valores['direccion']
+
+    cliente_existente = Cliente.query.filter_by(rut=rut).first()
+    if cliente_existente:
+        flash('El rut ya existe. No se puede crear el cliente.', 'error')
+        return jsonify({"status": 'error', "message": 'El rut ya existe'}), 400
 
     cliente = db.session.query(Cliente).filter(Cliente.id == id_cliente).first()
     cliente.rut = rut

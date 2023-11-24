@@ -31,11 +31,6 @@ const agregarCliente = async () => {
     return;
   }
 
-  function mostrarMensajeError(mensaje) {
-    // Utilizar Toastr.js u otra biblioteca similar para mostrar mensajes de error
-    toastr.error(mensaje, 'Error', { timeOut: 3000 });
-  }
-
   const response = await fetch('/api/clientes/agregar', {
     method: 'PUT',
     body: JSON.stringify({ rut: rut, apellido: apellido, nombre: nombre, telefono: telefono, direccion: direccion }), // string or object
@@ -43,6 +38,14 @@ const agregarCliente = async () => {
       'Content-Type': 'application/json'
     }
   });
+
+  if (!response.ok) {
+    // Si la respuesta no fue exitosa, mostrar el mensaje de error recibido del servidor
+    const errorJson = await response.json();
+    mostrarMensajeError(errorJson.message);
+    return;
+  }
+
   const myJson = await response.json();
   $('#rut').val('')
   $('#apellido').val('')
@@ -55,6 +58,10 @@ const agregarCliente = async () => {
   $('#AgregarClienteModal').modal('toggle')
   toastr.success('Cliente guardado exitosamente')
   
+}
+
+function mostrarMensajeError(mensaje) {
+  toastr.error(mensaje, 'Error', { timeOut: 3000 });
 }
 
 $(document).ready(function () {

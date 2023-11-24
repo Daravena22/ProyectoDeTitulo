@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% block contenido %}
-  <!-- Encabezado "CATEGORÍAS" con fondo suave -->
+
   <div style="background-color: #E6E6FA; padding: 10px; text-align: center;">
     <h5 style="color: rgb(61, 20, 80);">VENTAS</h5>
   </div>
 
-  <!-- Botón para agregar categoría y tabla DataTable -->
+
   <button type="button" class="btn btn-primary m-4" onclick="agregarVenta()">
-    Agregar Venta
+    Registrar Venta
   </button>
+  
 
   <div class="table-responsive m-4">
     <table id="datos_venta" class="table table-striped table-bordered">
@@ -26,16 +27,34 @@
   </div>
 
   {% include 'agregar_venta.html' %}
-  <!-- {% include 'editar_productos.html' %} -->
+
   <script src="{{ url_for('ventas.static', filename='ventas.js') }}"></script>
 
   <style>
-    /* Estilos para la tabla DataTable */
-    #datos_ventas {
-      width: 80%; /* Cambia el porcentaje según el tamaño deseado */
-      margin: 0 auto; /* Centra la tabla horizontalmente */
+
+    
+    #datos_venta {
+        width: 80%; 
+        margin: 0 auto; 
     }
 
-    /* Define tus estilos personalizados aquí */
-  </style>
+    #datos_venta th,
+    #datos_venta td {
+        text-align: center; 
+    }
+
+    #datos_venta thead th {
+        background-color: rgb(61, 20, 80); 
+        color: #fff; 
+    }
+
+    #datos_venta tbody tr:nth-child(even) {
+        background-color: #f8f9fa; 
+    }
+
+    #datos_venta tbody tr:hover {
+        background-color: #d1ecf1; 
+    }
+</style>
+
 {% endblock %}

@@ -1,20 +1,19 @@
 {% extends 'base.html' %}
 {% block contenido %}
-  <!-- Encabezado "CLIENTES" -->
+
   <div style="background-color: #E6E6FA; padding: 10px; text-align: center;">
     <h5 style="color: rgb(61, 20, 80);">PAGOS</h5>
   </div>
 
-  <!-- Botón para agregar cliente y tabla DataTable -->
+  <div class="m-4" style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+    <label for="cliente" class="form-label" style="color: rgb(61, 20, 80); font-size: 18px; font-weight: bold;">FILTRAR PAGOS POR CLIENTE</label>
+    <select id="cliente" class="form-select estilo-select" style="color: rgb(61, 20, 80); border-color: rgb(61, 20, 80);" onchange="cargar_datos_cliente()">
+    </select>
+</div>
+
   <button type="button" class="btn btn-primary m-4" onclick="agregarPago()">
     Agregar Pago
   </button>
-
-  <div class="mb-3">
-    <label for="cliente" class="form-label">Cliente</label>
-    <select id="cliente" class="form-select" onchange="cargar_datos_cliente()">
-    </select>
-  </div>
 
   <div class="table-responsive m-4">
     <table id="datos_pagos" class="table table-striped table-bordered">
@@ -34,12 +33,46 @@
   <script src="{{ url_for('pagos.static', filename='pagos.js') }}"></script>
 
   <style>
-    /* Estilos para la tabla DataTable */
+
+    
     #datos_pagos {
-      width: 80%; /* Cambia el porcentaje según el tamaño deseado */
-      margin: 0 auto; /* Centra la tabla horizontalmente */
+        width: 80%; 
+        margin: 0 auto; 
     }
 
-    /* Define tus estilos personalizados aquí */
-  </style>
+    #datos_pagos th,
+    #datos_pagos td {
+        text-align: center; 
+    }
+
+    #datos_pagos thead th {
+        background-color: rgb(61, 20, 80); 
+        color: #fff; 
+    }
+
+    #datos_pagos tbody tr:nth-child(even) {
+        background-color: #f8f9fa; 
+    }
+
+    #datos_pagos tbody tr:hover {
+        background-color: #d1ecf1; 
+    }
+
+    .estilo-select {
+    width: 100%; 
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    color: #495057;
+    font-size: 16px;
+  }
+
+  .estilo-select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+  }
+    
+</style>
 {% endblock %}
