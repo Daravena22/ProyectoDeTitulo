@@ -98,8 +98,15 @@ $(document).ready(function () {
     columns: [
 
       { data: 'cliente', title: 'CLIENTE' },
-      { data: 'monto', title: 'MONTO' },
-      { data: 'fecha', title: 'FECHA' },
+      { data: 'monto', title: 'MONTO PAGADO' },
+      { data: 'fecha', title: 'FECHA DE PAGO' },
+      {
+        data: null, title: "ACCIONES",
+        render: function (data, type, row) {
+          return '<button type="button" class="btn btn-danger eliminar-btn" onclick="eliminarPago(' + row.id + ')">Anular Pago</button>' 
+            
+        }
+      }
 
 
     ],
@@ -148,5 +155,22 @@ function cargar_datos_cliente(){
 
 $('#datos_pagos').DataTable().ajax.reload();
 
-
 }
+
+const eliminarPago = (id_abono) => {
+
+  $('#confirmarEliminarModal').modal('show');
+  $('#confirmarEliminarBtn').on('click', async () => {
+    const response = await fetch(`/api/pagos/eliminar/${id_abono}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const myJson = await response.json();
+    $('#datos_pagos').DataTable().ajax.reload();
+    $('#confirmarEliminarModal').modal('hide');
+
+  });
+};

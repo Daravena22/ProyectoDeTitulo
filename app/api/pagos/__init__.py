@@ -49,3 +49,23 @@ def listar_pagos():
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})
 
+
+from flask import abort
+
+@api_pagos.route("/eliminar/<int:pago_id>", methods=["DELETE"])
+@login_required
+def eliminar_pago(pago_id):
+ 
+    abono = db.session.query(Abono).filter(Abono.id == pago_id).first()
+
+    if abono:
+     
+        cliente = db.session.query(Cliente).filter(Cliente.id == abono.cliente_id).first()
+        cliente.deuda = cliente.deuda + abono.monto     
+        db.session.delete(abono)
+        db.session.commit()
+
+        return jsonify({"status": 'ok'}), 200
+    else:
+        
+        abort(404)

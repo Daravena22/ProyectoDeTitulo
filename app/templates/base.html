@@ -5,7 +5,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='DataTables/datatables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='toastr/cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap-select/bootstrap-select.min.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
    
     <title>NellyJoyas - Home</title>
     <style>
@@ -66,20 +65,20 @@
         }
 
          .welcome-container {
-        background-color: rgba(255, 255, 255, 0.178); /* Fondo blanco semi-transparente */
+        background-color: rgba(255, 255, 255, 0.178); 
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
-        margin-top: 50px; /* Mayor separación superior */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+        margin-top: 50px; 
     }
 
     .welcome-container h1 {
-        font-size: 3em; /* Tamaño de fuente más grande */
+        font-size: 3em; 
     }
 
     .welcome-container p {
-        font-size: 1.5em; /* Tamaño de fuente más grande */
-        margin-bottom: 30px; /* Mayor espacio inferior */
+        font-size: 1.5em; 
+        margin-bottom: 30px; 
     }
 
     </style>
@@ -150,14 +149,12 @@
     <script src="{{ url_for('static', filename='toastr/cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.js') }}"></script>
     <script src="{{ url_for('static', filename='base.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap-select/bootstrap-select.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
    
 
     {% block contenido %} 
 		 
 	{% endblock %}
 
-    <!-- Resto del contenido de la página -->
 
 </body>
 </html>

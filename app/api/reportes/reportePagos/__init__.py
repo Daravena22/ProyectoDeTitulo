@@ -2,7 +2,8 @@ from flask import Blueprint, jsonify, redirect, render_template, request, send_f
 from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash
 from app import db
-from app.modelos.abono import Abono 
+from app.modelos.abono import Abono
+from app.modelos.tipo_abono import Tipo_abono  
 from app.modelos.cliente import Cliente 
 from app.common.sql_utils import SqlUtils
 from app.modelos.venta import Venta
@@ -24,7 +25,7 @@ api_reportePagos = Blueprint('api_reportePagos', __name__, url_prefix='/api/repo
 @login_required
 def generar_reporte():
 
-    rows = db.session.query(Abono.id, Cliente.rut,Cliente.apellido,Cliente.nombre,Abono.fecha, Abono.monto).join(Cliente, Abono.cliente_id == Cliente.id).all()
+    rows = db.session.query(Abono.id, Cliente.rut,Cliente.apellido,Cliente.nombre,Abono.fecha, Abono.monto, Tipo_abono.nombre).join(Cliente, Abono.cliente_id == Cliente.id).join(Tipo_abono,Abono.tipo_abono_id==Tipo_abono.id).all()
     
 
     # def color_pos_neg_value(value):
@@ -85,6 +86,7 @@ def generar_reporte():
         row.cell('Nombre')
         row.cell('Fecha')
         row.cell('Monto')
+        row.cell('Tipo de Pago')
         for data_row in rows:
             row = table.row()
             for col,valor in enumerate(data_row):
