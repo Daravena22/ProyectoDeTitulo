@@ -63,9 +63,8 @@ def get_port():
     value = EnvUtils.get("DATABASE_PORT")
     if value is None:
         engine = get_engine()
-        match engine:
-            case "postgresql": value = DEFAULT_DATABASE_PORTS["postgresql"]
-            case "mysql+pymysql": value = DEFAULT_DATABASE_PORTS["mysql+pymysql"]
+        if engine == "postgresql": value = DEFAULT_DATABASE_PORTS["postgresql"]
+        elif engine == "mysql+pymysql": value = DEFAULT_DATABASE_PORTS["mysql+pymysql"]
         if value is None:
             raise Exception("Error getting DATABASE_PORT [DEFAULT], invalid engine")
         logger.info(f"DATABASE_PORT [DEFAULT] = {value}")
