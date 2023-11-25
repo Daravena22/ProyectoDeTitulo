@@ -6,6 +6,8 @@ from flask_login import LoginManager
 from app.configs.app import AppConfigs
 from app.configs.database import DatabaseConfigs
 from app.configs.logging import LoggingConfigs
+from app.common.env_utils import EnvUtils
+EnvUtils.load_from_file()
 
 LoggingConfigs.init()
 
