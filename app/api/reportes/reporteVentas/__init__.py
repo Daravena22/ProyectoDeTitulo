@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import dataframe_image as dfi
 from app.api.reportes.common import create_letterhead, create_title, write_to_pdf, PDF
 from fpdf.fonts import FontFace
+import os
 
 
 
@@ -25,6 +26,8 @@ api_reporteVentas = Blueprint('api_reporteVentas', __name__, url_prefix='/api/re
 @api_reporteVentas.route("/generar", methods=["GET"])
 @login_required
 def generar_reporte():
+
+    os.makedirs('tmp', exist_ok=True)
 
     fecha_desde = request.args.get('fecha_desde')
     fecha_hasta = request.args.get('fecha_hasta')

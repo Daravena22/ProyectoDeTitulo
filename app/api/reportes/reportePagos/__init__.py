@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import dataframe_image as dfi
 from app.api.reportes.common import create_letterhead, create_title, write_to_pdf, PDF
 from fpdf.fonts import FontFace
-
+import os
 
 
 api_reportePagos = Blueprint('api_reportePagos', __name__, url_prefix='/api/reportes/reportePagos')
@@ -24,6 +24,8 @@ api_reportePagos = Blueprint('api_reportePagos', __name__, url_prefix='/api/repo
 @api_reportePagos.route("/generar", methods=["GET"])
 @login_required
 def generar_reporte():
+
+    os.makedirs('tmp', exist_ok=True)
 
     rows = db.session.query(Abono.id, Cliente.rut,Cliente.apellido,Cliente.nombre,Abono.fecha, Abono.monto, Tipo_abono.nombre).join(Cliente, Abono.cliente_id == Cliente.id).join(Tipo_abono,Abono.tipo_abono_id==Tipo_abono.id).all()
     

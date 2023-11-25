@@ -10,6 +10,7 @@ import pandas as pd
 import dataframe_image as dfi
 from app.api.reportes.common import create_letterhead, create_title, write_to_pdf, PDF
 from fpdf.fonts import FontFace
+import os
 
 
 api_reporteClientes = Blueprint('api_reporteClientes', __name__, url_prefix='/api/reportes/reporteClientes')
@@ -19,6 +20,7 @@ api_reporteClientes = Blueprint('api_reporteClientes', __name__, url_prefix='/ap
 @login_required
 def generar_reporte():
 
+    os.makedirs('tmp', exist_ok=True)
     tipo = request.args.get('tipo')
     rows = db.session.query(Cliente.id,Cliente.rut,Cliente.apellido,Cliente.nombre,Cliente.telefono, Cliente.deuda).filter(or_(tipo=='todos',Cliente.deuda>0)).all()
     
