@@ -3,7 +3,7 @@ from flask_login import login_required
 from app import db 
 from app.modelos.cliente import Cliente 
 from app.common.sql_utils import SqlUtils
-from sqlalchemy import or_ 
+from sqlalchemy import or_, and_
 
 api_clientes = Blueprint('api_clientes', __name__, url_prefix='/api/clientes')
 
@@ -30,6 +30,7 @@ def agregar_cliente():
     cliente.nombre = nombre
     cliente.telefono = telefono
     cliente.direccion = direccion
+    cliente.estado = 1
     cliente.deuda = 0
 
     db.session.add(cliente)
@@ -50,7 +51,7 @@ def listar_clientes():
         Cliente.nombre.like(f"%{buscar}%"),
         Cliente.apellido.like(f"%{buscar}%")
     ]
-    query = db.session.query(Cliente.id,Cliente.rut,Cliente.apellido,Cliente.nombre,Cliente.telefono,Cliente.direccion, Cliente.deuda).filter(or_(*buscar_or)).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
+    query = db.session.query(Cliente.id,Cliente.rut,Cliente.apellido,Cliente.nombre,Cliente.telefono,Cliente.direccion, Cliente.deuda).filter(and_(or_(*buscar_or)), Cliente.estado==1).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
     rows=query.items
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})
@@ -61,7 +62,7 @@ def eliminar_cliente():
     valores = request.get_json()
     id = valores["id"]
     cliente = db.session.query(Cliente).filter(Cliente.id==id).first()
-    db.session.delete(cliente)
+    cliente.estado = 0
     db.session.commit()
     return jsonify({"status":'ok'}), 200
 

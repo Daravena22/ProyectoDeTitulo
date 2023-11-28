@@ -8,5 +8,5 @@ class Cliente(db.Model):
     telefono = db.Column(db.String(20)) 
     direccion = db.Column(db.String(100))
     deuda = db.Column(db.Double)
-    estado = db.Column(db.Double) 
+    estado = db.Column(db.Integer) 
 
