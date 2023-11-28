@@ -48,7 +48,10 @@ def agregar_venta():
         unidades = int(producto['cantidad'])
         precio = float(producto['precio'])
         monto_neto += precio*unidades
+        producto = db.session.query(Producto).filter(Producto.id == producto_id).first()
+        producto.stock = producto.stock - unidades
     
+
     venta.monto_neto = monto_neto
     impuesto = monto_neto*VALOR_IVA
     venta.monto_impuesto = impuesto

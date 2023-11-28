@@ -20,6 +20,10 @@ const agregarVenta = async () => {
     listadocliente.appendChild(option);
   });
 
+  $('#cliente').select2({
+    dropdownParent: $('#AgregarVentaModal')
+});
+
   response = await fetch(`/api/mantenedores/tipo_abono/listartodo`, {
     method: 'GET',
     headers: {
@@ -59,21 +63,37 @@ const agregarVenta = async () => {
   });
   console.log(productos)
   $('#precio').val(rowData.data[0].precio);
+  $('#stock').val(rowData.data[0].stock);
   $('#cantidad').val(1)
   calcular_total()
   total = 0
   $('#monto_neto').val(0);
   $('#monto_bruto').val(0);
   $('#abonar').val(0);
+  var carrito = document.getElementById("carrito");
+  var tableHeaderRowCount = 1;
+  var rowCount = carrito.rows.length;
+  for (var i = tableHeaderRowCount; i < rowCount; i++) {
+    carrito.deleteRow(tableHeaderRowCount);
+}
+  document.getElementById('productos-tab').classList.remove('active');
+  document.getElementById('pago-tab').classList.remove('active');
+  document.getElementById('datos-tab').classList.add('active');
+  document.getElementById('productos-tab-pane').classList.remove('show', 'active');
+  document.getElementById('pago-tab-pane').classList.remove('show', 'active');
+  document.getElementById('datos-tab-pane').classList.add('show', 'active');
   $('#AgregarVentaModal').modal('toggle');
+  
 };
 
 function seleccionar_producto(id_producto) {
   id_producto = id_producto.value
   console.log(id_producto)
   var precio = productos[id_producto].precio;
+  var stock = productos[id_producto].stock;
   console.log(precio)
   $('#precio').val(precio);
+  $('#stock').val(stock);
   $('#cantidad').val(1)
   calcular_total();
 }
@@ -96,9 +116,14 @@ function agregar_producto() {
   indice = document.getElementById('productos').selectedIndex
   producto = document.getElementById('productos').options[indice].text
   precio = document.getElementById('precio').value
+  stock = document.getElementById('stock').value
   cantidad = document.getElementById('cantidad').value
 
-
+  if(parseFloat(cantidad)>parseFloat(stock)){
+    toastr.error('Cantidad no puede ser mayor al Stock')
+    return
+    
+  }
   carrito_productos[id_producto] = { precio: precio, cantidad: cantidad, nombre:producto, id:id_producto}
 
   pintar_carrito()

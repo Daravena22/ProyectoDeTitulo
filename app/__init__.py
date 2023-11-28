@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from app.modelos import importar_modelos
@@ -109,3 +109,7 @@ app.register_blueprint(api_reporteVentas)
 
 from app.web.reportes.ventas import reporteVentas
 app.register_blueprint(reporteVentas)
+
+@app.route('/')
+def root():
+    return redirect('/home')

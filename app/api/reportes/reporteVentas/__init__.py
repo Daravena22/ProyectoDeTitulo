@@ -98,7 +98,7 @@ def generar_reporte():
     monto = 0 
 
     for row in rows:
-        if row.fecha > fecha + timedelta(days=6):
+        while row.fecha > fecha + timedelta(days=6):
             datos.append((fecha,fecha + timedelta(days=6),monto,pagado))
             fecha=fecha + timedelta(days=7)
             pagado = 0
