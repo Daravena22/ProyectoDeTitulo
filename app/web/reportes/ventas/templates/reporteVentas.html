@@ -4,7 +4,13 @@
 <div style="background-color: #E6E6FA; padding: 10px; text-align: center;">
   <h5 style="color: rgb(61, 20, 80);">REPORTE VENTAS</h5>
 </div>
-
+<div class="container mt-4">
+  <div class="container-reporte" style="border: 4px solid rgb(61, 20, 80); border-radius: 10px; background-color: #FDF5E6;">
+    <h6>Bienvenida Nelly a la vista de Reporte Ventas</h6>
+    <p>En esta vista podrás emitir reportes de todas las ventas que has realizado y una comparativa entre el total de las ventas y abonos que has recibido en un rango determinado de fechas.</p>
+    <p>Para ello, selecciona una FECHA DESDE y una FECHA HASTA, luego presiona el botón "Generar Reporte". Es importante que ingreses las fechas, ya que si no lo haces, no podrás generar el reporte.</p>
+  </div>
+  
 <div class="container mt-4">
   <form class="form-container-reporte">
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -26,9 +32,12 @@
 </div>
 
 <style>
-  .container-reporte {
+ .container-reporte {
     background-color: #F8F4F9;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(61, 20, 80);
+    margin-top: 20px;
   }
 
   .form-container-reporte {
@@ -64,6 +73,7 @@
     background-color: #392F5A;
     border-color: #392F5A;
   }
+</style>
 </style>
 
   <script src="{{ url_for('reporteVentas.static', filename='reporteVentas.js') }}"></script>

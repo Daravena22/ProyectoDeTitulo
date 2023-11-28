@@ -22,7 +22,7 @@ def agregar_cliente():
     cliente_existente = Cliente.query.filter_by(rut=rut).first()
     if cliente_existente:
         flash('El rut ya existe. No se puede crear el cliente.', 'error')
-        return jsonify({"status": 'error', "message": 'El RUT ya existe, intente'}), 400
+        return jsonify({"status": 'error', "message": 'El RUT ya existe, intente nuevamente'}), 400
     
     cliente = Cliente()
     cliente.rut = rut

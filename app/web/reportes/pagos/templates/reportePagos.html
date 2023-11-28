@@ -6,18 +6,22 @@
 </div>
 
 <div class="container mt-4">
+  <div class="container-reporte">
+    <h6>Bienvenida Nelly a la vista de Pagos</h6>
+    <p>En esta vista podrás emitir reportes de todos los pagos que has recibido en un rango determinado de fechas, incluyendo si los pagos fueron realizados mediante efectivo o transferencia.</p>
+    <p>Para ello, selecciona una FECHA DESDE y una FECHA HASTA, luego presiona el botón "Generar Reporte". Es importante que ingreses las fechas, ya que si no lo haces, no podrás generar el reporte.</p>
+  </div>
+
   <form class="form-container-reporte">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div class="fecha-container">
         <label for="fecha_desde" class="form-label">Fecha Desde</label>
         <input id="fecha_desde" class="form-control" type="date" />
-        <span id="fechaSelected"></span>
       </div>
 
       <div class="fecha-container">
         <label for="fecha_hasta" class="form-label">Fecha Hasta</label>
         <input id="fecha_hasta" class="form-control" type="date" />
-        <span id="fechaSelected"></span>
       </div>
     </div>
 
@@ -29,6 +33,9 @@
   .container-reporte {
     background-color: #F8F4F9;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
   }
 
   .form-container-reporte {
@@ -66,5 +73,5 @@
   }
 </style>
 
-  <script src="{{ url_for('reportePagos.static', filename='reportePagos.js') }}"></script>
+<script src="{{ url_for('reportePagos.static', filename='reportePagos.js') }}"></script>
 {% endblock %}

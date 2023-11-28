@@ -48,7 +48,7 @@ def agregar_venta():
         unidades = int(producto['cantidad'])
         precio = float(producto['precio'])
         monto_neto += precio*unidades
-        producto = db.session.query(Producto).filter(Producto.id == producto_id).first()
+        producto = db.session.query(Producto).filter(Producto.id == producto_id, Producto.stock>0).first()
         producto.stock = producto.stock - unidades
     
 
@@ -79,7 +79,7 @@ def agregar_venta():
         
     if venta.monto_bruto != abonado:
 
-        cliente:Cliente = db.session.query(Cliente).filter(Cliente.id==cliente_id).first()
+        cliente:Cliente = db.session.query(Cliente).filter(Cliente.id==cliente_id,Cliente.estado==1).first()
         monto = venta.monto_bruto - abonado
         cliente.deuda = cliente.deuda + monto
 

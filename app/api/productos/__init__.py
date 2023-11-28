@@ -6,6 +6,7 @@ from app.modelos.producto import Producto
 from app.modelos.material import Material
 from app.modelos.categoria import Categoria 
 from app.common.sql_utils import SqlUtils
+from sqlalchemy import or_, and_
 
 api_productos = Blueprint('api_productos', __name__, url_prefix='/api/productos')
 
@@ -43,7 +44,7 @@ def listar_productos():
     start = int(request.args.get("start"))
     pagina_index = int(start/pagina_lenght+1)
     draw = int(request.args.get("draw"))
-    query = db.session.query(Producto.id, Producto.genero ,Producto.nombre,Producto.detalle,Producto.precio,Producto.stock, Categoria.nombre.label('categoria'),Material.nombre.label('material')).join(Categoria,Producto.categoria_id == Categoria.id).join(Material, Producto.material_id == Material.id).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
+    query = db.session.query(Producto.id, Producto.genero ,Producto.nombre,Producto.detalle,Producto.precio,Producto.stock, Categoria.nombre.label('categoria'),Material.nombre.label('material')).join(Categoria,Producto.categoria_id == Categoria.id).join(Material, Producto.material_id == Material.id).filter(and_(Producto.stock>0)).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
     rows=query.items
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})
@@ -53,11 +54,8 @@ def listar_productos():
 @login_required
 def datos_productos(id_producto):
 
-  
-    # Obtén el cliente que deseas editar desde la base de datos
     producto = db.session.query(Producto).filter(Producto.id == id_producto).first()
-    
-    # Devuelve los datos del cliente como JSON, incluso si el cliente no se encuentra
+
     producto_data = {
         
         "genero" : producto.genero,

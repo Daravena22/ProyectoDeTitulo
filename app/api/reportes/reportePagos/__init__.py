@@ -7,7 +7,7 @@ from app.modelos.tipo_abono import Tipo_abono
 from app.modelos.cliente import Cliente 
 from app.common.sql_utils import SqlUtils
 from app.modelos.venta import Venta
-from sqlalchemy import or_ , func
+from sqlalchemy import or_ , func, and_
 import fpdf
 from fpdf import FPDF
 import time
@@ -27,26 +27,12 @@ def generar_reporte():
 
     os.makedirs('tmp', exist_ok=True)
 
-    rows = db.session.query(Abono.id, Cliente.rut,Cliente.apellido,Cliente.nombre,Abono.fecha, Abono.monto, Tipo_abono.nombre).join(Cliente, Abono.cliente_id == Cliente.id).join(Tipo_abono,Abono.tipo_abono_id==Tipo_abono.id).all()
+    fecha_desde = request.args.get('fecha_desde')
+    fecha_hasta = request.args.get('fecha_hasta')
+    rows = db.session.query(Abono.id, Cliente.rut,Cliente.apellido,Cliente.nombre,Abono.fecha, Abono.monto, Tipo_abono.nombre).join(Cliente, Abono.cliente_id == Cliente.id).join(Tipo_abono,Abono.tipo_abono_id==Tipo_abono.id).filter(and_(Abono.fecha>=fecha_desde,Abono.fecha<= fecha_hasta)).order_by(Abono.fecha).all()
     
 
-    # def color_pos_neg_value(value):
-    #     if value > 0:
-    #         color = 'green'
-    #     elif value < 0:
-    #         color = 'red'
-    #     else:
-    #         color = 'black'
-    #     return 'color: %s' % color
-     
-    # df.rename(columns={'rut':'RUT', 'apellido':'Apellido', 'nombre':'Nombre', 'monto': 'Monto', 'fecha':'Fecha'}, inplace=True)
-    # styled_df = df.style.format({ 
-    #     'Monto': "{:.0f}",
-    #     }).hide(axis='index').applymap(color_pos_neg_value, subset=['Monto'])
-    
-    # dfi.export(styled_df, 'tmp/reporte_pagos.png')
 
-    # Global Variables
     TITLE = "Reporte de Pagos"
     WIDTH = 210
     HEIGHT = 297

@@ -40,7 +40,9 @@ const agregarPago = async () => {
     
 console.log(clientes)
 
-
+$('#pago_cliente').select2({
+  dropdownParent: $('#AgregarPagoModal')
+});
 seleccionar_cliente(document.getElementById('pago_cliente'))
 $('#monto').val(0);
 $('#AgregarPagoModal').modal('toggle');
@@ -79,6 +81,7 @@ const guardarPago = async () => {
 
   $('#datos_pagos').DataTable().ajax.reload();
   $('#AgregarPagoModal').modal('toggle')
+  
   toastr.success('Pago guardado exitosamente')
 }
 
@@ -154,6 +157,7 @@ const cargar_clientes = async (id_cliente) =>{
 function cargar_datos_cliente(){
 
 $('#datos_pagos').DataTable().ajax.reload();
+$('#cliente').select2();
 
 }
 
