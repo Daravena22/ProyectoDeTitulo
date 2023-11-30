@@ -227,6 +227,15 @@ $(document).ready(function () {
       { data: 'fecha', title: 'FECHA' },
       { data: 'total', title: 'TOTAL' },
       { data: 'abonado', title: 'ABONADO' },
+      {
+        data: null, title: "ACCIONES",
+        render: function (data, type, row) {
+          return '<button type="button" class="btn btn-danger eliminar-btn" onclick="eliminarVenta(' + row.id + ')">Anular Venta</button>' 
+            
+        }
+      }
+      
+      
 
 
     ],
@@ -247,6 +256,25 @@ $(document).ready(function () {
   });
 });
 
+
+const eliminarVenta = (id_venta) => {
+  $('#confirmarEliminarVentaModal').modal('show');
+  
+  $('#confirmarEliminarVentaBtn').on('click', async () => {
+    const response = await fetch(`/api/ventas/eliminar/${id_venta}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const myJson = await response.json();
+    
+    $('#confirmarEliminarVentaModal').modal('hide');
+    $('#datos_venta').DataTable().ajax.reload();
+  });
+  $('#datos_venta').DataTable().ajax.reload();
+};
 
 function agregar_venta_sgte_pestana() {
   if (document.getElementById('datos-tab').classList.contains('active')) {

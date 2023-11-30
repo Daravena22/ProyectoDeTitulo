@@ -105,20 +105,25 @@ $(document).ready(function () {
 });
 
 
-const eliminarCliente = async (id_cliente) => {
-  const response = await fetch('/api/clientes/eliminar', {
-    method: 'DELETE',
-    body: JSON.stringify({ id: id_cliente }), // string or object
-    headers: {
-      'Content-Type': 'application/json'
-    }
+const eliminarCliente = (id_cliente) => {
+  $('#confirmarEliminarClienteModal').modal('show');
+
+  $('#confirmarEliminarClienteBtn').on('click', async () => {
+    const response = await fetch('/api/clientes/eliminar', {
+      method: 'DELETE',
+      body: JSON.stringify({ id: id_cliente }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const myJson = await response.json();
+    $('#datos_clientes').DataTable().ajax.reload();
+
+    $('#confirmarEliminarClienteModal').modal('hide');
   });
-  const myJson = await response.json();
-  $('#datos_clientes').DataTable().ajax.reload();
-  
-  //extract JSON from the http response
-  // do something with myJson
-}
+};
+
 
 
 const editarCliente = async (id_cliente) => {

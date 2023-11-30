@@ -10,3 +10,4 @@ class Venta(db.Model):
     monto_bruto = db.Column(db.Double)
     monto_impuesto = db.Column(db.Double)
     total_abonado = db.Column(db.Double)
+    estado = db.Column(db.Integer) 
