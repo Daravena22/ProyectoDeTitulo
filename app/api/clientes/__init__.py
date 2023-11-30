@@ -91,7 +91,7 @@ def datos_cliente(id_cliente):
 @login_required
 def listar_todos_clientes():
     
-    rows = db.session.query(Cliente.id, Cliente.rut, Cliente.nombre, Cliente.apellido).all()
+    rows = db.session.query(Cliente.id, Cliente.rut, Cliente.nombre, Cliente.apellido).filter(Cliente.estado==1).all()
     data = SqlUtils.rows_to_dict(rows)
     
     return jsonify({"data": data})

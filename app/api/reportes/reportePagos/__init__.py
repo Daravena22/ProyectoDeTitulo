@@ -29,7 +29,7 @@ def generar_reporte():
 
     fecha_desde = request.args.get('fecha_desde')
     fecha_hasta = request.args.get('fecha_hasta')
-    rows = db.session.query(Abono.id, Cliente.rut,Cliente.apellido,Cliente.nombre,Abono.fecha, Abono.monto, Tipo_abono.nombre).join(Cliente, Abono.cliente_id == Cliente.id).join(Tipo_abono,Abono.tipo_abono_id==Tipo_abono.id).filter(and_(Abono.fecha>=fecha_desde,Abono.fecha<= fecha_hasta)).order_by(Abono.fecha).all()
+    rows = db.session.query(Abono.id, Cliente.rut,Cliente.apellido,Cliente.nombre,Abono.fecha, Abono.monto, Tipo_abono.nombre.label('tipo_abono')).join(Cliente, Abono.cliente_id == Cliente.id).join(Tipo_abono,Abono.tipo_abono_id==Tipo_abono.id).filter(and_(Abono.fecha>=fecha_desde,Abono.fecha<= fecha_hasta)).order_by(Abono.fecha).all()
     
 
 
@@ -59,6 +59,8 @@ def generar_reporte():
     # pdf.image("tmp/reporte_pagos.png", w=170)
     # pdf.ln(10)
     total = 0
+    total_transferencia = 0
+    total_efectivo = 0
     estilo_cabecera = FontFace(emphasis="BOLD", color=(255, 255, 255), fill_color=(57, 47, 90))
     estilo_monto = FontFace(emphasis="BOLD", color=(0, 100, 0))
     with pdf.table(borders_layout="MINIMAL",
@@ -81,12 +83,20 @@ def generar_reporte():
                 if col == 0: continue
                 if col == 5:
                     row.cell(str(valor),style=estilo_monto)
-                    total += valor
+                    total += valor 
+                    if data_row.tipo_abono == 'Efectivo':
+                        total_efectivo += valor
+                    elif data_row.tipo_abono == 'Transferencia':
+                        total_transferencia += valor
                 else:
                     row.cell(str(valor))
 
     pdf.ln(15)
     write_to_pdf(pdf, "Total de montos Pagados: "+ str(total))
+    pdf.ln(5)
+    write_to_pdf(pdf, "Total de montos Pagados con Efectivo: "+ str(total_efectivo))
+    pdf.ln(5)
+    write_to_pdf(pdf, "Total de montos Pagados con Transferencia: "+ str(total_transferencia))
 
     pdf.output("tmp/reporte_pagos.pdf", 'F')
 

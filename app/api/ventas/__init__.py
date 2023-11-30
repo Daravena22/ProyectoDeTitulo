@@ -7,7 +7,7 @@ from app.modelos.producto import Producto
 from app.common.sql_utils import SqlUtils
 from app.modelos.venta import Venta
 from app.modelos.cliente import Cliente
-from sqlalchemy import or_ , func
+from sqlalchemy import or_ , func, and_
 from app.modelos.detalle_venta import Detalle_venta
 from app.modelos.abono import Abono
 from app.modelos.tipo_abono import Tipo_abono
@@ -48,7 +48,7 @@ def agregar_venta():
         unidades = int(producto['cantidad'])
         precio = float(producto['precio'])
         monto_neto += precio*unidades
-        producto = db.session.query(Producto).filter(Producto.id == producto_id, Producto.stock>0).first()
+        producto = db.session.query(Producto).filter(Producto.id == producto_id).first()
         producto.stock = producto.stock - unidades
     
 
@@ -79,7 +79,7 @@ def agregar_venta():
         
     if venta.monto_bruto != abonado:
 
-        cliente:Cliente = db.session.query(Cliente).filter(Cliente.id==cliente_id,Cliente.estado==1).first()
+        cliente:Cliente = db.session.query(Cliente).filter(Cliente.id==cliente_id).first()
         monto = venta.monto_bruto - abonado
         cliente.deuda = cliente.deuda + monto
 
@@ -100,7 +100,7 @@ def listar_ventas():
         Cliente.apellido.like(f"%{buscar}%"),
         Venta.folio.like(f"%{buscar}%")
     ]
-    query = db.session.query(Venta.id ,Venta.fecha,Venta.folio,func.concat(Cliente.nombre, ' ', Cliente.apellido).label('cliente'), Venta.monto_bruto.label('total'),Venta.total_abonado.label('abonado')).join(Cliente,Venta.cliente_id == Cliente.id).filter(or_(*buscar_or)).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
+    query = db.session.query(Venta.id ,Venta.fecha,Venta.folio,func.concat(Cliente.nombre, ' ', Cliente.apellido).label('cliente'), Venta.monto_bruto.label('total'),Venta.total_abonado.label('abonado')).join(Cliente,Venta.cliente_id == Cliente.id).filter(and_(or_(*buscar_or)), Cliente.estado==1).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
     rows=query.items
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})

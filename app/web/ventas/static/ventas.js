@@ -61,6 +61,12 @@ const agregarVenta = async () => {
 
     productos[item.id] = { precio: item.precio, stock: item.stock }
   });
+
+  $('#productos').select2({
+    dropdownParent: $('#AgregarVentaModal')
+});
+
+  
   console.log(productos)
   $('#precio').val(rowData.data[0].precio);
   $('#stock').val(rowData.data[0].stock);
@@ -222,16 +228,6 @@ $(document).ready(function () {
       { data: 'total', title: 'TOTAL' },
       { data: 'abonado', title: 'ABONADO' },
 
-
-      // {
-      //   data: null, title: "ACCIONES",
-      //   render: function (data, type, row) {
-      //     return '<button type="button" class="btn btn-danger eliminar-btn" onclick="eliminarProducto(' + row.id + ')">Eliminar</button>' +
-      //       '<button type="button" class="btn btn-primary editar-btn" onclick="editarProducto(' + row.id + ')">Editar</button>';
-      //   }
-      // }
-
-      // Configura tus columnas aquí
 
     ],
     "language": {
