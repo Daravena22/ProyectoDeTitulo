@@ -105,3 +105,18 @@ def listar_ventas():
     rows=query.items
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})
+
+@api_ventas.route("/eliminar/<int:venta_id>", methods=["DELETE"])
+@login_required
+def eliminar_venta(venta_id):
+    venta = db.session.query(Venta).filter(Venta.id == venta_id).first()
+
+    if venta:
+        cliente = db.session.query(Cliente).filter(Cliente.id == venta.cliente_id).first()
+        cliente.deuda = cliente.deuda - venta.monto_bruto
+        venta.estado = 0  # Cambia el estado de la venta a inactivo
+        db.session.commit()
+
+        return jsonify({"status": 'ok'}), 200
+    else:
+        abort(404)
