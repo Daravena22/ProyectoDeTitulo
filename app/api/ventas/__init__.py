@@ -41,6 +41,7 @@ def agregar_venta():
     venta.fecha = fecha
     venta.cliente_id = cliente_id
     venta.total_abonado = abonado
+    venta.estado = 1
     
     monto_neto = 0.0
     
@@ -56,7 +57,8 @@ def agregar_venta():
     venta.monto_neto = monto_neto
     impuesto = monto_neto*VALOR_IVA
     venta.monto_impuesto = impuesto
-    venta.monto_bruto = monto_neto + impuesto
+    venta.monto_bruto = monto_neto 
+    # + impuesto
     db.session.add(venta)
     db.session.flush()
 

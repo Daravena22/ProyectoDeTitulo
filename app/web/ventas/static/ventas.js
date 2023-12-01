@@ -144,7 +144,7 @@ function calcular_totales(){
     total = total + item.cantidad * item.precio 
   }
   $('#monto_neto').val(total);
-  $('#monto_bruto').val(total * 1.19);
+  $('#monto_bruto').val(total * 1);
 }
 
 function pintar_carrito(){
