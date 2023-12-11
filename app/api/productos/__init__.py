@@ -31,6 +31,7 @@ def agregar_productos():
     producto.stock = stock
     producto.categoria_id = categoria_id
     producto.material_id = material_id 
+    producto.estado = 1
 
     db.session.add(producto)
     db.session.commit()
@@ -44,7 +45,7 @@ def listar_productos():
     start = int(request.args.get("start"))
     pagina_index = int(start/pagina_lenght+1)
     draw = int(request.args.get("draw"))
-    query = db.session.query(Producto.id, Producto.genero ,Producto.nombre,Producto.detalle,Producto.precio,Producto.stock, Categoria.nombre.label('categoria'),Material.nombre.label('material')).join(Categoria,Producto.categoria_id == Categoria.id).join(Material, Producto.material_id == Material.id).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
+    query = db.session.query(Producto.id, Producto.genero ,Producto.nombre,Producto.detalle,Producto.precio,Producto.stock, Categoria.nombre.label('categoria'),Material.nombre.label('material')).join(Categoria,Producto.categoria_id == Categoria.id).join(Material, Producto.material_id == Material.id).filter(Producto.estado == 1).paginate(page=pagina_index,per_page=pagina_lenght,error_out=False)
     rows=query.items
     data=SqlUtils.rows_to_dict(rows)
     return jsonify({"data": data, "recordsTotal": query.total,"draw":draw,"recordsFiltered":query.total})
@@ -75,8 +76,7 @@ def eliminar_producto():
     valores = request.get_json()
     id = valores["id"]
     producto = db.session.query(Producto).filter(Producto.id== id).first()
-
-    db.session.delete(producto)
+    producto.estado = 0
     db.session.commit()
     return jsonify({"status":'ok'}), 200
 
@@ -84,7 +84,7 @@ def eliminar_producto():
 @login_required
 def listar_todos_productos():
     
-    rows = db.session.query(Producto.id,Producto.nombre,Producto.detalle, Producto.precio, Producto.stock).filter(Producto.stock>0).all()
+    rows = db.session.query(Producto.id,Producto.nombre,Producto.detalle, Producto.precio, Producto.stock).filter(Producto.stock>0, Producto.estado == 1).all()
     data = SqlUtils.rows_to_dict(rows)
     
     return jsonify({"data": data})
@@ -109,6 +109,7 @@ def editar_producto():
     producto.detalle = detalle
     producto.precio = precio
     producto.categoria_id = categoria
+    producto.stock = stock
     producto.material_id = material
 
 
